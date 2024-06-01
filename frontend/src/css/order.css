@@ -1,0 +1,103 @@
+.orders-container{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding:0px;
+    gap: 10px;
+    width: 70%;
+}
+
+.order-group{
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 20px;
+    text-align: center;
+    background-color:white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: auto;
+}
+
+.order-ids{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 33%;
+}
+
+.order-ids h1,
+.order-overall h1{
+    font-size: 15px;
+}
+
+.order-id{
+    display:flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 0px 10px 0px 10px;
+}
+
+.order-items-container{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    flex-wrap: wrap;
+    margin: 0px;
+    padding: 10px;
+    gap: 10px;
+    justify-content: center;
+    min-height: 150px;
+    width: 35%;
+
+}
+
+.order-item-group{
+    display:flex;
+    border: 1px solid gray;
+    border-radius: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.order-item-id{
+    text-wrap:wrap;
+    width: 65%;
+}
+
+.order-item-deets{
+    display:flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+.order-total{
+    width: 20%;
+
+}
+
+.order-item-deets p{
+    display:inline-flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.order-date{
+    display:flex;
+    width: 18%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(241, 241, 241);
+}
+
+.manage-order{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 14%;
+    gap: 20px;
+}
