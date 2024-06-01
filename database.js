@@ -15,8 +15,21 @@ const pool = mysql
 
 //FUNCTIONS FOR REPORTS TO BE GENERATED
 
+const result = await pool.query("SELECT * FROM user;");
+const rows = result[0];
+// console.log(rows);
+
+async function findUser(username, age) {
+  const [rows] = await pool.query(
+    `SELECT * from user where username = ? and age = ?;`,
+    [username, age]
+  );
+
+  return rows;
+}
+
 //view all establishments
-async function viewAllEstablishments() {
+async function viewAllEstablishments(order) {
   const [rows] = await pool.query(
     `SELECT food_establishment.establishment_name AS "Establishment Name",
     food_establishment.establishment_address AS "Address",
@@ -24,16 +37,34 @@ async function viewAllEstablishments() {
     food_establishment.establishment_cost AS "Price Range",
     AVG(food_review.rating) AS "Average Rating"
     FROM food_establishment JOIN food_review
-    ON food_establishment.establishment_id=food_review.establishment_id
-    GROUP BY food_establishment.establishment_id
-    ORDER BY "Average Rating" DESC;`
+    ON food_establishment.establishment_id=food_review.establishment_id WHERE food_review.establishment_id is NOT NULL GROUP BY food_review.establishment_id
+    ORDER BY AVG(food_review.rating) ${order};`
   );
 
   return rows;
 }
 
-//view all food reviews for an establishment or a food item
-async function viewAllFoodReviews() {
+const usertest = await viewAllEstablishments("ASC");
+console.log(usertest);
+
+//view all food reviews for an establishment
+async function viewAllFoodReviewsEstablishment(establishment_name) {
+  const [rows] = await pool.query(
+    `SELECT food_item.item_name AS "Food Name", food_establishment.establishment_name AS
+    "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
+    Name", review_date AS "Date", review_time AS "Time"
+    FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
+    JOIN food_establishment ON food_review.establishment_id=food_establishment.establishment_id
+    JOIN user ON user.username=food_review.username WHERE food_establishment.establishment_name= ? ORDER BY food_review.entry_id,
+    food_review.username, food_review.establishment_id, food_review.item_id; `,
+    [establishment_name]
+  );
+
+  return rows;
+}
+
+//view all food reviews for a food item
+async function viewAllFoodReviewsFoodItem(food_name) {
   const [rows] = await pool.query(
     `SELECT food_item.item_name AS "Food Name", food_establishment.establishment_name AS
     "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
@@ -41,32 +72,36 @@ async function viewAllFoodReviews() {
     FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
     JOIN food_establishment ON
     food_review.establishment_id=food_establishment.establishment_id
-    JOIN user ON user.username=food_review.username GROUP BY food_review.entry_id,
-    food_review.username, food_review.establishment_id, food_review.item_id; `
+    JOIN user ON user.username=food_review.username WHERE food_item.item_name= ?
+    ORDER BY food_review.entry_id,
+    food_review.username, food_review.establishment_id, food_review.item_id; `,
+    [food_name]
   );
 
   return rows;
 }
 
 //view all food items from an establishment
-async function viewAllFoodItems() {
+async function viewAllFoodItems(establishment_name, order) {
   const [rows] = await pool.query(
     `SELECT * FROM food_item JOIN food_establishment
     ON food_item.establishment_id=food_establishment.establishment_id
-    GROUP BY food_item.food_type
-    ORDER BY food_item.item_price DESC;`
+    WHERE food_establishment.establishment_name= ?
+    ORDER BY food_item.item_price ${order};`,
+    [establishment_name]
   );
 
   return rows;
 }
 
 //view all food items from an establishment that belong to a food type {meat | veg | etc}
-async function viewAllFoodItemsWithType(type) {
+async function viewAllFoodItemsWithType(type, establishment_name) {
   const [rows] = await pool.query(
     `SELECT * FROM food_item JOIN food_establishment
     ON food_item.establishment_id=food_establishment.establishment_id
-    WHERE food_item.food_type="${type}"
-    ORDER BY food_item.item_price DESC;`
+    WHERE food_item.food_type="${type}" AND food_establishment.establishment_name= ?
+    ORDER BY food_item.item_price DESC;`,
+    [establishment_name]
   );
 }
 
@@ -111,7 +146,7 @@ async function viewAllFoodItemsOrderByPrice() {
 }
 
 //search food items from any establishment based on a given price range and/or food type.
-async function searchFoodItem() {
+async function searchFoodItem2() {
   const [rows] = await pool.query(
     `SELECT f.item_id, f.item_name, f.item_price, f.food_type, e.establishment_name FROM
     food_item f JOIN food_establishment e ON f.establishment_id = e.establishment_id
@@ -137,6 +172,18 @@ async function addFoodReview() {
 
   return result;
 }
+
+async function addUser() {
+  const [result] =
+    await pool.query(`INSERT INTO user (username, user_password, display_name, age) VALUES ("testing", "12345", "Mike", 35);
+  `);
+
+  return result;
+}
+
+const adduser = await addUser();
+
+console.log(adduser);
 
 //Update a food review (on a food establishment or a food item);
 async function updateFoodReview() {
