@@ -18,7 +18,6 @@ export default function EstablishmentData({ data }) {
             <th>Establishment Name</th>
             <th>Address</th>
             <th>Cuisine</th>
-            <th>Price Range</th>
             <th>Avg. Rating</th>
             <th>Options</th>
           </tr>
@@ -29,7 +28,6 @@ export default function EstablishmentData({ data }) {
               <td>{establishment["Establishment Name"]}</td>
               <td>{establishment["Address"]}</td>
               <td>{establishment["Cuisine"]}</td>
-              <td>{establishment["Price Range"]}</td>
               <td>{establishment["Average Rating"]}</td>
               <td className="inv-edit-btn">EDIT</td>
             </tr>

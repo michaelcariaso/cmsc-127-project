@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding:0;
+    outline: 0;
+    appearance: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; 
+}
+
+
+.login input, .signup input{
+    width: 300px;
+    margin: 10px;
+    padding: 12px;
+    border: 3px solid #ccc;
+    border-radius: 4px;
+    flex-direction: column;
+    display: flex;
+}
+
+.login-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.login-welcome img{
+    border-radius: 50px;
+}
+
+.login-box{
+    border: black solid;
+    border-radius: 50px;
+    align-content: center;
+    margin: 100px 0px 100px 0px;
+    padding: 50px;
+}
+
+.login-box h1, .login-box p{
+    text-align: center;
+}
+
+.login-input{
+    text-align: center;
+}
+
+.login-input button{
+    padding: 10px;
+    border-radius: 10px;
+}

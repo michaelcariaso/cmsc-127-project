@@ -1,0 +1,135 @@
+.menu-container{
+  display:flex;
+  align-items: right;
+  float: right;
+  padding-right: 50px;
+}
+  
+.menu-items{
+  margin: 20px;
+  font-size: 25px;
+
+}
+
+.shop-body{
+  display: flex;
+  justify-content: center;
+}
+
+.product-shop{
+  display:flex;
+  margin: 0px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-sorting{
+  margin-bottom:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.product-sorting button,
+.product-sorting p{
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.product-container{
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px;
+  padding:0px;
+  gap: 10px;
+  justify-content: center;
+}
+
+.product-group{
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 20px;
+  text-align: center;
+  width: 48%;
+  min-height: 20vh;
+  max-height: 50vw;
+  word-wrap: break-word;
+  background-color:white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.product-img {
+  width: 33%;
+}
+
+.product-img img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit:cover;
+  border-radius: 15px;
+}
+
+.product-group button{
+  margin-top: auto;
+  padding: 10px 15px;
+}
+
+.product-deets{
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  width: 67%;
+}
+
+.product-deets h1,
+.product-deets p {
+  margin: 5px 0;
+}
+
+.cart-container{
+  display:flex;
+  flex-direction: column;
+  background-color: rgb(245, 245, 245);
+  border-radius: 20px;
+  min-width: 30%;
+  min-height: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  position:relative;
+  margin-bottom: auto;
+}
+
+.cart-items{
+  text-align: left;
+  display: flex;
+  margin: 10px;
+  padding: 0px 15px 0px 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  background-color: rgb(255, 255, 156);
+}
+
+.cart-items p{
+  word-wrap: break-word;
+  font-size: 20px;
+  max-width: 70%;
+  margin: 0;
+}
+
+.cart-deets{
+  margin: 20px 0px 20px 0px;
+}
+
+.remove-item{
+  height: 50px;
+  width: 50px;
+  margin: 10px 0px 10px 0px;
+}
