@@ -28,3 +28,5 @@ export async function viewAllEstablishments(req, res) {
     res.status(500).json({ error: 'Failed to fetch establishments' });
   }
 }
+
+

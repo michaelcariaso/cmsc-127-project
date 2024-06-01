@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "../css/inventory.css";
 
 export default function EstablishmentData({ data }) {
   const [establishmentData, setEstablishmentData] = useState(data || []);
