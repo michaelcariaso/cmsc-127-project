@@ -13,6 +13,12 @@ import {
 
 import { addUser, searchUser } from "./controllers/user_controller.js";
 
+import {
+  addReview,
+  updateReview,
+  deleteReview,
+} from "./controllers/review_controller.js";
+
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => {
     res.send("API Main Page");
@@ -33,6 +39,11 @@ const setUpRoutes = (app) => {
   //user
   app.post("/user/add", addUser);
   app.get("/user/search", searchUser);
+
+  //food review
+  app.post("/review/add", addReview);
+  app.post("/review/update", updateReview);
+  app.post("/review/delete", deleteReview);
 };
 
 export default setUpRoutes;
