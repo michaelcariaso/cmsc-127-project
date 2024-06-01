@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import '../css/login.css'
-import currentUser from 'index.js';
+import currentUser from '../index.js';
 
 const LogIn = () => {
     const [username, setUsername] = useState();
     const [pword, setPassword] = useState();
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -18,7 +18,7 @@ const LogIn = () => {
         //     alert("Invalid username or password")
         // }
         }
-    }
+
 
 
     return (

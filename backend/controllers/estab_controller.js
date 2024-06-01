@@ -1,4 +1,4 @@
-import pool from "mysql_pool";
+import pool from "./mysql_pool.js";
 
 async function addFoodEstablishment(req, res, newEstab) {
   try {

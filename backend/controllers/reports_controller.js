@@ -1,6 +1,6 @@
-import pool from "mysql_pool";
+import pool from "./mysql_pool.js";
 
-//view all establishments
+// view all establishments
 export async function viewAllEstablishments(req, res) {
   try {
     const [rows] = await pool.query(
@@ -21,7 +21,7 @@ export async function viewAllEstablishments(req, res) {
   }
 }
 
-//view all food reviews for an establishment
+// view all food reviews for an establishment
 export async function viewAllFoodReviewsEstablishment(req, res) {
   const establishment_id = req.query.establishment_id;
   try {
@@ -45,7 +45,7 @@ export async function viewAllFoodReviewsEstablishment(req, res) {
   }
 }
 
-//view all food reviews for a food item
+// view all food reviews for a food item
 export async function viewAllFoodReviewsFoodItem(req, res) {
   const item_id = req.query.item_id;
   try {
@@ -70,7 +70,7 @@ export async function viewAllFoodReviewsFoodItem(req, res) {
   }
 }
 
-//view all food items from an establishment
+// view all food items from an establishment
 export async function viewAllFoodItems(req, res) {
   const establishment_id = req.query.establishment_id;
   const order = req.query.order;
@@ -92,7 +92,7 @@ export async function viewAllFoodItems(req, res) {
   }
 }
 
-//view all food items from an establishment that belong to a food type {meat | veg | etc}
+// view all food items from an establishment that belong to a food type {meat | veg | etc}
 export async function viewAllFoodItemsWithType(req, res) {
   const type = req.query.type;
   const establishment_id = req.query.establishment_id;
@@ -114,7 +114,7 @@ export async function viewAllFoodItemsWithType(req, res) {
   }
 }
 
-//view all reviews made within a month for an establishment;
+// view all reviews made within a month for an establishment;
 export async function viewAllMonthlyReviewsEstablishment(req, res) {
   const month = req.query.month;
   const year = req.query.year;
@@ -144,7 +144,7 @@ export async function viewAllMonthlyReviewsEstablishment(req, res) {
   }
 }
 
-//view all reviews made within a month for a food item;
+// view all reviews made within a month for a food item;
 export async function viewAllMonthlyReviewsFoodItem(req, res) {
   const month = req.query.month;
   const year = req.query.year;
@@ -173,8 +173,8 @@ export async function viewAllMonthlyReviewsFoodItem(req, res) {
   }
 }
 
-//view all establishments with a high average rating (rating >= 4). (rating from 1-5; highest is 5);
-export async function viewAllHighAverageRatingEstablishments() {
+// view all establishments with a high average rating (rating >= 4). (rating from 1-5; highest is 5);
+export async function viewAllHighAverageRatingEstablishments(req, res) {
   try {
     const [rows] = await pool.query(
       `SELECT f.establishment_id, e.establishment_name, e.establishment_address, e.establishment_cuisine, AVG(r.rating) AS average_rating
@@ -183,7 +183,7 @@ export async function viewAllHighAverageRatingEstablishments() {
       HAVING AVG(r.rating) >= 4;`
     );
 
-    req.status(200).json(rows);
+    res.status(200).json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -192,11 +192,11 @@ export async function viewAllHighAverageRatingEstablishments() {
   }
 }
 
-//view all food items from an establishment arranged according to price
-export async function viewAllFoodItemsOrderByPrice() {
+// view all food items from an establishment arranged according to price
+export async function viewAllFoodItemsOrderByPrice(req, res) {
   const order = req.query.order;
 
-  if (!req.query.order) {
+  if (!order) {
     order = "ASC";
   }
 
@@ -207,7 +207,7 @@ export async function viewAllFoodItemsOrderByPrice() {
       ORDER BY ${order};`
     );
 
-    req.status(200).json(rows);
+    res.status(200).json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -216,8 +216,8 @@ export async function viewAllFoodItemsOrderByPrice() {
   }
 }
 
-//search food items from any establishment based on a given price range and/or food type.
-export async function searchFoodItem() {
+// search food items from any establishment based on a given price range and/or food type.
+export async function searchFoodItem(req, res) {
   const min_price = req.query.min_price;
   const max_price = req.query.max_price;
   const food_type = req.query.food_type;
@@ -230,7 +230,7 @@ export async function searchFoodItem() {
       OR (${max_price} IS NULL OR f.item_price <= ${max_price})
       OR (${food_type} IS NULL OR f.food_type = ${food_type});`
     );
-    req.status(200).json(rows);
+    res.status(200).json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({

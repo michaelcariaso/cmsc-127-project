@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../css/login.css"
-import axios from 'axios';
 
 const SignUp = () => {
     const [fname, setFname] = useState();
@@ -11,23 +10,10 @@ const SignUp = () => {
     const [pword, setPassword] = useState();
     const [confirmPass, setConfirmPass] = useState();
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const handleSignup = (e) => {
         e.preventDefault();
-        if(pword !== confirmPass){
-            alert("Passwords do not match.");
-        }
-        else{
-            axios.post('http://localhost:4000/sign-up', {fname, mname, lname, utype: "customer", email, pword})
-            .then(
-                result=>console.log(result)
-            ).then(
-                navigate('/')
-            )
-            .catch(err=>console.log(err))
-        }  
-       
     }
 
     return (
