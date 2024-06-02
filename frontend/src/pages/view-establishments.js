@@ -8,6 +8,7 @@ const Establishments = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [foodType, setFoodType] = useState("");
+  const [findEstab, setFindEstab] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +43,9 @@ const Establishments = () => {
   return (
     <>
       <Navbar />
+      <h1>ALL ESTABLISHMENTS</h1>
       <div className="estab-container">
+
         <EstablishmentData data={establishmentData} />
         <div className="estabmenu-container">
           <h1>MENU</h1>
@@ -83,6 +86,18 @@ const Establishments = () => {
             />
             <button type="submit">SUBMIT SEARCH</button>
           </form>
+          <div className="find-estab">
+            <h1>SEARCH FOR ESTAB</h1>
+            <input 
+              name="find-estab"
+              type="text"
+              value={findEstab}
+              onChange={(e) => setFindEstab(e.target.value)}  
+            />
+            <Link to={`/estabs/search-name?establishment_name=${findEstab}`}>
+              <button>SEARCH NAME</button>
+            </Link>
+          </div>
         </div>
       </div>
     </>

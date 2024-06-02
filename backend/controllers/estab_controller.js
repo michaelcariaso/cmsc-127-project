@@ -20,7 +20,6 @@ export async function addFoodEstablishment(req, res) {
   }
 }
 
-
 export async function deleteFoodEstablishment(req, res) {
   const establishment_id = req.body.establishment_id;
   try {
@@ -51,7 +50,6 @@ export async function deleteFoodEstablishment(req, res) {
 }
 
 export async function searchFoodEstablishment(req, res) {
-
   const establishment_id = req.query.establishment_id;
 
   try {
@@ -69,14 +67,51 @@ export async function searchFoodEstablishment(req, res) {
   }
 }
 
-//estab_update string from string builder in
-export async function updateFoodEstablishment(req, res, estab_update) {
+export async function searchEstabName(req, res) {
+
+  const establishment_name = `%${req.query.establishment_name}%`;
+
   try {
-    const result = await pool.query(
-      `UPDATE food_establishment SET ${estab_update};`
+    const [result] = await pool.query(
+      `SELECT food_establishment.establishment_id,
+              food_establishment.establishment_name AS "Establishment Name",
+              food_establishment.establishment_address AS "Address",
+              food_establishment.establishment_cuisine AS "Cuisine",
+              COALESCE(AVG(food_review.rating), 0) AS "Average Rating"
+         FROM food_establishment 
+         LEFT JOIN food_review ON food_establishment.establishment_id = food_review.establishment_id WHERE establishment_name LIKE ? GROUP BY food_establishment.establishment_id ORDER BY "Average Rating" DESC;`, [establishment_name]
     );
     res.status(200).json(result);
   } catch (error) {
+    console.error("Error finding food establishment:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch estab" });
+    throw error;
+  }
+}
+
+//estab_update string from string builder in
+export async function updateFoodEstablishment(req, res) {
+  const {
+    establishment_name,
+    establishment_address,
+    establishment_cuisine,
+    establishment_id,
+  } = req.body;
+  try {
+    const result = await pool.query(
+      `UPDATE food_establishment SET establishment_name = ?, establishment_address = ?, establishment_cuisine = ? WHERE establishment_id = ?;`,
+      [
+        establishment_name,
+        establishment_address,
+        establishment_cuisine,
+        establishment_id,
+      ]
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update food establishment" });
     console.error("Error updating food establishment:", error);
     throw error;
   }

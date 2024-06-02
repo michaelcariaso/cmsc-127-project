@@ -34,10 +34,12 @@ export default function EstablishmentData({ data }) {
 
   return (
     <div className="inventorytable-container">
-      <h1>ALL ESTABLISHMENTS</h1>
       <div className="establishment-container">
         {establishmentData.map((establishment) => (
-          <div className="establishment-group" key={establishment._id}>
+          <div
+            key={establishment.establishment_id}
+            className="establishment-group"
+          >
             <div className="establishment-img">
               <img
                 src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -68,7 +70,11 @@ export default function EstablishmentData({ data }) {
                 </Link>
               </div>
               <div>
-                <button>UPDATE</button>
+                <Link
+                  to={`/estabs/update?establishment_id=${establishment.establishment_id}`}
+                >
+                  <button>UPDATE</button>
+                </Link>
                 <button
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent click event from propagating

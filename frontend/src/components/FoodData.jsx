@@ -69,9 +69,7 @@ export default function EstabFoodData({ data, establishment_id }) {
             </div>
             <div className="food-deets">
               <h1 className="food-name">{food.item_name}</h1>
-              <p className="food-price">
-                Price: {food.item_price}
-              </p>
+              <p className="food-price">Price: {food.item_price}</p>
               <p className="food-price">
                 AVG. RATING: {food["Average Rating"]}
               </p>
@@ -83,7 +81,9 @@ export default function EstabFoodData({ data, establishment_id }) {
                 </Link>
               </div>
               <div>
-                <button>UPDATE</button>
+                <Link to={`/estabs/food/update?item_id=${food.item_id}`}>
+                  <button>UPDATE</button>
+                </Link>
                 <button
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent click event from propagating

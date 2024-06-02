@@ -11,6 +11,7 @@ const EstabFoods = () => {
   const [estabFoodData, setEstabFoodData] = useState([]);
 
   const [selectedFoodType, setSelectedFoodType] = useState("meat");
+  const [findFood, setFindFood] = useState();
 
   useEffect(() => {
     const fetchFood = async () => {
@@ -28,9 +29,6 @@ const EstabFoods = () => {
     fetchFood();
   }, [establishment_id]);
 
-  const handleSelectChange = (event) => {
-    setSelectedFoodType(event.target.value);
-  };
 
   return (
     <>
@@ -41,13 +39,6 @@ const EstabFoods = () => {
           establishment_id={establishment_id}
         />
         <div className="foodmenu-container">
-          {/* <div className="search-food-name">
-            <label for="food-name-filter">Search by Name</label>
-            <div className="fsearch">
-              <input type="text" id ="food-name"></input>
-              <button>SEARCH</button>
-            </div>
-          </div> */}
           <div className="search-food-type">
             <div>
               <Link
@@ -62,6 +53,18 @@ const EstabFoods = () => {
               <h1>ADD FOOD</h1>
               <AddFood establishment_id={establishment_id}></AddFood>
             </div>
+          </div>
+          <div classNMame="find-estab">
+            <h1>SEARCH FOR FOOD</h1>
+            <input 
+              name="find-estab"
+              type="text"
+              value={findFood}
+              onChange={(e) => setFindFood(e.target.value)}  
+            />
+            <Link to={`/estabs/search-food?establishment_id=${establishment_id}&item_name=${findFood}`}>
+              <button>SEARCH NAME</button>
+            </Link>
           </div>
         </div>
       </div>
