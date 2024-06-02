@@ -10,6 +10,28 @@ export default function EstablishmentData({ data }) {
     setEstablishmentData(data);
   }, [data]);
 
+  //delete review function
+  function deleteEstablishment(establishment_id) {
+    fetch("http://localhost:4000/estabs/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ establishment_id: establishment_id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete food establishment");
+        }
+
+        //alert message for sucess
+        alert("Food establishment deleted successfully");
+
+        return response.text();
+      })
+      .then((body) => {
+        console.log(body);
+      });
+  }
+
   return (
     <div className="inventorytable-container">
       <h1>ALL ESTABLISHMENTS</h1>
@@ -47,7 +69,15 @@ export default function EstablishmentData({ data }) {
               </div>
               <div>
                 <button>UPDATE</button>
-                <button>DELETE</button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent click event from propagating
+                    deleteEstablishment(establishment.establishment_id);
+                    window.location.reload();
+                  }}
+                >
+                  DELETE
+                </button>
               </div>
             </div>
           </div>

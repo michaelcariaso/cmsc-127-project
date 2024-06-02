@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./navbar.js";
 import { Link, useLocation } from "react-router-dom";
 import EstabFoodData from "../components/FoodData.jsx";
+import AddFood from "../components/AddFood.jsx";
 
 const EstabFoods = () => {
   const location = useLocation();
@@ -35,7 +36,10 @@ const EstabFoods = () => {
     <>
       <Navbar />
       <div className="food-container">
-        <EstabFoodData data={estabFoodData} establishment_id={establishment_id}/>
+        <EstabFoodData
+          data={estabFoodData}
+          establishment_id={establishment_id}
+        />
         <div className="foodmenu-container">
           {/* <div className="search-food-name">
             <label for="food-name-filter">Search by Name</label>
@@ -46,7 +50,9 @@ const EstabFoods = () => {
           </div> */}
           <div className="search-food-type">
             <div>
-              <Link to={`/estabs/food-type?food_type=${selectedFoodType}&establishment_id=${establishment_id}`}>
+              <Link
+                to={`/estabs/food-type?food_type=${selectedFoodType}&establishment_id=${establishment_id}`}
+              >
                 <button>Search by Food Type</button>
               </Link>
             </div>
@@ -54,7 +60,7 @@ const EstabFoods = () => {
           <div className="add-food-container">
             <div className="add-food">
               <h1>ADD FOOD</h1>
-              <input type="text" />
+              <AddFood establishment_id={establishment_id}></AddFood>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ async function addFoodEstablishment(req, res) {
       req.body;
     const result = await pool.query(
       `INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine)
-      VALUES ((SELECT CONCAT(?,"-",COUNT(f.establishment_id)) FROM food_establishment f),?,?,?);`,
+      VALUES ((SELECT CONCAT(?,"-",(COUNT(f.establishment_id)+1)) FROM food_establishment f),?,?,?);`,
       [
         establishment_name,
         establishment_name,
@@ -21,36 +21,53 @@ async function addFoodEstablishment(req, res) {
   }
 }
 
-async function deleteFoodEstablishment(req, res, establishment_id) {
+
+export async function deleteFoodEstablishment(req, res) {
+  const establishment_id = req.body.establishment_id;
   try {
-    const result = await pool.query(
+    //delete food reviews
+    const result1 = await pool.query(
+      `DELETE FROM food_review WHERE establishment_id = ?;`,
+      [establishment_id]
+    );
+
+    //delete food items
+    const result2 = await pool.query(
+      `DELETE FROM food_item WHERE establishment_id = ?;`,
+      [establishment_id]
+    );
+
+    //delete food establishments
+    const result3 = await pool.query(
       `DELETE FROM food_establishment WHERE establishment_id= ?;`,
+      [establishment_id]
+    );
+    res.status(200).json(result3);
+  } catch (error) {
+    res.status(500).json({
+      error: "Failed to delete food establishment",
+    });
+    throw error;
+  }
+}
+
+async function searchFoodEstablishment(req, res) {
+
+  const establishment_id = req.query.establishment_id;
+
+  try {
+    const [result] = await pool.query(
+      `SELECT * FROM food_establishment WHERE establishment_id= ?;`,
       [establishment_id]
     );
     res.status(200).json(result);
   } catch (error) {
     console.error("Error deleting food establishment:", error);
-    throw error;
-  }
-}
-
-
-async function searchFoodEstablishment(req, res) {
-  const establishment_id = req.query.establishment_id;
-
-    try {
-        const [result] = await pool.query(
-            `SELECT * FROM food_establishment WHERE establishment_id= ?;`,
-        [establishment_id]
-      );
-      res.status(200).json(result);
-    } catch (error) {
-      console.error("Error deleting food establishment:", error);
-      res
+    res
       .status(500)
       .json({ error: "Failed to fetch food reviews for the food item" });
-      throw error;
-    }
+    throw error;
+  }
 }
 
 //estab_update string from string builder in
