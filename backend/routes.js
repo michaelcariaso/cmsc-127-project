@@ -19,6 +19,13 @@ import {
   deleteReview,
 } from "./controllers/review_controller.js";
 
+import {
+  addFoodEstablishment,
+  updateFoodEstablishment,
+  deleteFoodEstablishment,
+  searchFoodEstablishment,
+} from "./controllers/estab_controller.js";
+
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => {
     res.send("API Main Page");
@@ -44,6 +51,12 @@ const setUpRoutes = (app) => {
   app.post("/review/add", addReview);
   app.post("/review/update", updateReview);
   app.post("/review/delete", deleteReview);
+
+  //establishment
+  app.post("/estabs/add", addFoodEstablishment);
+  app.post("/estabs/edit", updateFoodEstablishment);
+  app.post("/estabs/delete", deleteFoodEstablishment);
+  app.get("/estabs/search", searchFoodEstablishment);
 };
 
 export default setUpRoutes;

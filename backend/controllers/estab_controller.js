@@ -1,52 +1,46 @@
 import pool from "./mysql_pool.js";
 
-async function addFoodEstablishment(req, res, newEstab) {
+export async function addFoodEstablishment(req, res) {
   try {
-    const {
-      establishment_id,
-      establishment_name,
-      establishment_address,
-      establishment_cuisine,
-      establishment_cost,
-    } = newEstab;
+    const { establishment_name, establishment_address, establishment_cuisine } =
+      req.body;
     const result = await pool.query(
-      `INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine, establishment_cost)
-      VALUES (?, ?, ?, ?, ?);`,
+      `INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine)
+      VALUES ((SELECT CONCAT(?,"-",COUNT(f.establishment_id)) FROM food_establishment f),?,?,?);`,
       [
-        establishment_id,
+        establishment_name,
         establishment_name,
         establishment_address,
         establishment_cuisine,
-        establishment_cost,
       ]
     );
-    return result;
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error adding food establishment:", error);
     throw error;
   }
 }
 
-async function deleteFoodEstablishment(req, res, establishment_id) {
+export async function deleteFoodEstablishment(req, res, establishment_id) {
   try {
     const result = await pool.query(
       `DELETE FROM food_establishment WHERE establishment_id= ?;`,
       [establishment_id]
     );
-    return result;
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error deleting food establishment:", error);
     throw error;
   }
 }
 
-async function searchFoodEstablishment(req, res, establishment_name) {
+export async function searchFoodEstablishment(req, res, establishment_name) {
   try {
     const result = await pool.query(
       `SELECT * FROM food_establishment WHERE establishment_name= ?;`,
       [establishment_name]
     );
-    return result;
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error deleting food establishment:", error);
     throw error;
@@ -54,12 +48,12 @@ async function searchFoodEstablishment(req, res, establishment_name) {
 }
 
 //estab_update string from string builder in
-async function updateFoodEstablishment(req, res, estab_update) {
+export async function updateFoodEstablishment(req, res, estab_update) {
   try {
     const result = await pool.query(
       `UPDATE food_establishment SET ${estab_update};`
     );
-    return result;
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error updating food establishment:", error);
     throw error;

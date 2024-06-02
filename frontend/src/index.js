@@ -12,7 +12,8 @@ import ReviewsEstab from "./pages/estab-review.js";
 import EstabFood from "./pages/view-food.js";
 import ReviewsFood from "./pages/food-review.js";
 import AddReview from "./pages/add-review.js";
-import EstabRating from './pages/view-estabs-rating.js';
+import EstabRating from "./pages/view-estabs-rating.js";
+import AddEstablishment from "./components/AddEstablishment.jsx";
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
   { path: "/sign-up", element: <SignUp /> },
   //MENU/ESTABS LIST
   { path: "/estabs", element: <Establishments /> },
-  { path: '/estabs/high-rating', element: <EstabRating />},
+  { path: "/estabs/high-rating", element: <EstabRating /> },
+  { path: "/estabs/add-establishment", element: <AddEstablishment /> },
   //REVIEWS OF ESTAB
   { path: "/estabs/food-review", element: <ReviewsEstab /> },
   { path: "/estabs/food-review/add-review", element: <AddReview /> },
@@ -35,7 +37,6 @@ const router = createBrowserRouter([
   // { path: '/estabs/food/food-review/monthly', element: <ReviewsFoodMonth />},
   // { path: '/foods/order-price', element: <EstabFood />},
   // { path: '/food', element: <EstabFood />},
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
