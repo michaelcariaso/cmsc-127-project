@@ -2,6 +2,7 @@ import React, {useState} from "react";
 // import { useNavigate } from "react-router-dom";
 import '../css/login.css'
 import currentUser from '../index.js';
+import Navbar from "./navbar.js";
 
 const LogIn = () => {
     const [username, setUsername] = useState();
@@ -22,6 +23,8 @@ const LogIn = () => {
 
 
     return (
+        <>
+        <Navbar/>
         <div class="login-container">
             <div class="login-welcome">
                 <img src ="https://static.rappler.com/images/20130910-philippine-rice-01.jpg" alt="logo.jpg"></img>
@@ -46,6 +49,7 @@ const LogIn = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
  

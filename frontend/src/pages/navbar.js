@@ -1,21 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/navbar.css'
+import '../css/navbar.css';
 
-const Navbar = ({ children }) => {
+const Navbar = () => {
   return (
-    <div className="navbar">
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/sign-up">Sign Up</Link></li>
-          <li><Link to="/estabs">Establishments</Link></li>
-          {/* Add more navigation links as needed */}
-        </ul>
-      </nav>
-      {/* Render the child components (router content) */}
-      {children}
-    </div>
+    <>
+        <div className="navbar">
+            <div className="navtitle">
+                <h1>Where2Eat</h1>
+            </div>
+            <nav>
+                <ul>
+                <li><Link to="/">Log In</Link></li>
+                <li><Link to="/sign-up">Sign Up</Link></li>
+                <li><Link to="/estabs">Establishments</Link></li>
+                </ul>
+            </nav>
+        </div>
+    </>
   );
 }
 
