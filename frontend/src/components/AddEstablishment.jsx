@@ -39,6 +39,7 @@ export default function AddEstablishment() {
       })
       .then((body) => {
         console.log(body);
+        window.location.reload();
       });
 
     //reset values

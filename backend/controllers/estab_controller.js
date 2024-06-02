@@ -1,12 +1,11 @@
 import pool from "./mysql_pool.js";
 
-async function addFoodEstablishment(req, res) {
+export async function addFoodEstablishment(req, res) {
   try {
     const { establishment_name, establishment_address, establishment_cuisine } =
       req.body;
     const result = await pool.query(
-      `INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine)
-      VALUES ((SELECT CONCAT(?,"-",(COUNT(f.establishment_id)+1)) FROM food_establishment f),?,?,?);`,
+      `INSERT INTO food_establishment(establishment_id,     establishment_name, establishment_address, establishment_cuisine) VALUES ((SELECT SUBSTRING( (CONCAT(?,"-",(COUNT(f.establishment_id)))), 10) FROM food_establishment f),?,?,?);`,
       [
         establishment_name,
         establishment_name,
@@ -51,7 +50,7 @@ export async function deleteFoodEstablishment(req, res) {
   }
 }
 
-async function searchFoodEstablishment(req, res) {
+export async function searchFoodEstablishment(req, res) {
 
   const establishment_id = req.query.establishment_id;
 
@@ -71,7 +70,7 @@ async function searchFoodEstablishment(req, res) {
 }
 
 //estab_update string from string builder in
-async function updateFoodEstablishment(req, res, estab_update) {
+export async function updateFoodEstablishment(req, res, estab_update) {
   try {
     const result = await pool.query(
       `UPDATE food_establishment SET ${estab_update};`
@@ -82,5 +81,3 @@ async function updateFoodEstablishment(req, res, estab_update) {
     throw error;
   }
 }
-
-export {addFoodEstablishment, deleteFoodEstablishment, searchFoodEstablishment, updateFoodEstablishment};

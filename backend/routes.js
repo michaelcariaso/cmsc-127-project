@@ -19,12 +19,12 @@ import {
   deleteReview,
 } from "./controllers/review_controller.js";
 
-import searchFoodEstablishment from "./controllers/estab_controller.js";
 import {
   searchFoodType,
   addFoodItem,
   deleteFoodItem,
   updateFoodItem,
+  searchFoodParams
 } from "./controllers/item_controller.js";
 
 import {
@@ -34,11 +34,6 @@ import {
   deleteFoodEstablishment,
 } from "./controllers/estab_controller.js";
 
-import {
-  searchFoodType,
-  searchFoodParams
-
-} from "./controllers/item_controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => {

@@ -81,13 +81,7 @@ async function searchFoodType(req, res) {
       .status(500)
       .json({ error: "Failed to fetch food with food type" });
       throw error;
-
     }
-  } catch (error) {
-    console.error("Error finding food item:", error);
-    res.status(500).json({ error: "Failed to fetch food with food type" });
-    throw error;
-  }
 }
 
 async function searchFoodParams (req, res) {
