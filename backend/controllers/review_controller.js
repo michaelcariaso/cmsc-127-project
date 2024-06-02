@@ -2,7 +2,6 @@ import pool from "./mysql_pool.js";
 
 //add food review
 export async function addReview(req, res) {
-  console.log(req.body);
   const review = req.body.review;
   const rating = req.body.rating;
   const username = req.body.username;
@@ -50,7 +49,7 @@ export async function updateReview(req, res) {
       `UPDATE food_review SET review = ?, rating = ?, review_date=CURDATE(), review_time=CURTIME() WHERE entry_id = ?;`,
       [review, rating, entry_id]
     );
-    res.json(rows);
+    res.status(200).json(rows);
   } catch (error) {
     console.error(error);
     res
@@ -74,5 +73,23 @@ export async function deleteReview(req, res) {
     res
       .status(500)
       .json({ error: "Failed to delete food review from the database" });
+  }
+}
+
+//find review
+export async function findReview(req, res) {
+  const entry_id = req.query.entry_id;
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT * from food_review WHERE entry_id = ?`,
+      [entry_id]
+    );
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Failed to fetch review",
+    });
   }
 }

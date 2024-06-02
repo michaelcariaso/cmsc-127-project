@@ -39,22 +39,31 @@ export default function ReviewsFoodData(props) {
           <div key={review.id} className="review">
             <h2>{review["Review"]}</h2>
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent click event from propagating
-              deleteReview(review.entry_id);
-              window.location.reload();
-            }}
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent click event from propagating
+                deleteReview(review.entry_id);
+                window.location.reload();
+              }}
             >
-            DELETE REVIEW
-          </button>
-            </div>
+              UPDATE REVIEW
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent click event from propagating
+                deleteReview(review.entry_id);
+                window.location.reload();
+              }}
+            >
+              DELETE REVIEW
+            </button>
+          </div>
         </div>
       ))}
       <div>
         <Link
           to={`/estabs/food/food-review/add-review?establishment_id=${props.establishment_id}&item_id=${props.item_id}`}
-          >
+        >
           <button>ADD REVIEW</button>
         </Link>
 

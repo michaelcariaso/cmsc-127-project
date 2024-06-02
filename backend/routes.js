@@ -16,6 +16,7 @@ import {
   addReview,
   updateReview,
   deleteReview,
+  findReview,
 } from "./controllers/review_controller.js";
 
 import {
@@ -24,7 +25,7 @@ import {
   deleteFoodItem,
   updateFoodItem,
   searchFoodParams,
-  searchFoodItem
+  searchFoodItem,
   findFood,
 } from "./controllers/item_controller.js";
 
@@ -61,20 +62,20 @@ const setUpRoutes = (app) => {
   app.post("/review/add", addReview);
   app.post("/review/update", updateReview);
   app.post("/review/delete", deleteReview);
+  app.get("/review/findOne", findReview);
 
   //establishment
   app.post("/estabs/add", addFoodEstablishment);
   app.post("/estabs/edit", updateFoodEstablishment);
   app.post("/estabs/delete", deleteFoodEstablishment);
   app.get("/estabs/search", searchFoodEstablishment);
-  app.get("/estabs/search-name", searchEstabName)
+  app.get("/estabs/search-name", searchEstabName);
 
   //food item
   app.get("/estabs/food-type", searchFoodType);
 
   app.get("/estabs/food-query", searchFoodParams);
   app.get("/estabs/food/findOne", findFood);
-
 
   app.post("/estabs/food/add", addFoodItem);
   app.post("/estabs/food/delete", deleteFoodItem);

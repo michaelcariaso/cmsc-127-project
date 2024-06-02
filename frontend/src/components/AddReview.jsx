@@ -12,7 +12,7 @@ export default function AddReviewData({ establishment_id, item_id }) {
     console.log(review);
     console.log(rating);
     //check if any of the input fields are empty
-    if (review == "" || rating == 1) {
+    if (review == "") {
       //alert message for incomplete fields
       alert("Please fill out all of the fields first");
       return;

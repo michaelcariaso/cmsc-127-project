@@ -42,12 +42,12 @@ export async function deleteFoodItem(req, res) {
 }
 
 export async function searchFoodItem(req, res) {
-    const { establishment_id, item_name } = req.query;
-    const queryItem = `%${item_name}%`;
-  
-    try {
-      const [result] = await pool.query(
-        `SELECT 
+  const { establishment_id, item_name } = req.query;
+  const queryItem = `%${item_name}%`;
+
+  try {
+    const [result] = await pool.query(
+      `SELECT 
            t.item_id, 
            t.item_name, 
            t.item_price, 
@@ -66,15 +66,17 @@ export async function searchFoodItem(req, res) {
            t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id
          ORDER BY 
            t.item_price;`,
-        [establishment_id, queryItem]
-      );
-  
-      res.status(200).json(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Failed to fetch food items from the establishment" });
-    }
+      [establishment_id, queryItem]
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch food items from the establishment" });
   }
+}
 
 async function searchFoodType(req, res) {
   const food_type = req.query.food_type;

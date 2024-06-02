@@ -26,7 +26,7 @@ export async function viewAllReviewsEstablishment(req, res) {
   const establishment_id = req.query.establishment_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_establishment.establishment_id, food_review.entry_id, food_establishment.establishment_name AS
+      `SELECT food_establishment.establishment_id, food_review.entry_id AS "Entry Id", food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display Name",
       review_date AS "Date", review_time AS "Time"
         FROM food_review JOIN food_establishment ON food_review.establishment_id=food_establishment.establishment_id
@@ -105,7 +105,6 @@ export async function viewAllFoodItems(req, res) {
       .json({ error: "Failed to fetch food items from the establishment" });
   }
 }
-
 
 // view all food items from an establishment that belong to a food type {meat | veg | etc}
 export async function viewAllFoodItemsWithType(req, res) {
