@@ -5,6 +5,7 @@ import '../css/estab.css';
 
 import Navbar from "./navbar.js";
 import { useLocation } from "react-router-dom";
+import EstabFoodData from "../components/FoodData.jsx";
 
 const EstabFoods = () => {
     const location = useLocation();
@@ -30,8 +31,8 @@ const EstabFoods = () => {
     <>
       <Navbar />
       <div className = "food-container">
-        <FoodData data={foodData} />
-        <div className = "estabmenu-container">
+        <EstabFoodData data={estabFoodData} />
+        <div className = "foodmenu-container">
           <h1>ADD FOOD</h1>
         </div>
       </div>

@@ -9,6 +9,7 @@ import SignUp from './pages/sign-up.js';
 
 import Establishments from './pages/view-establishments';
 import ReviewsEstab from './pages/estab-review.js';
+import EstabFood from './pages/view-food.js';
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
   //MENU
   { path: '/estabs', element: <Establishments/>},
   { path: '/estabs/food-review', element: <ReviewsEstab />},
+  { path: '/estabs/food', element: <EstabFood />}
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
