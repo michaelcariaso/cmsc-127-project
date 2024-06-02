@@ -49,7 +49,7 @@ export async function viewAllFoodReviewsFoodItem(req, res) {
   const item_id = req.query.item_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.item_name AS "Food Name", food_review.entry_id, food_establishment.establishment_name AS
+      `SELECT food_item.item_name AS "Food Name", food_review.entry_id AS "Entry Id", food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
       Name", review_date AS "Date", review_time AS "Time"
       FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id

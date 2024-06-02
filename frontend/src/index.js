@@ -25,6 +25,7 @@ import FoodNameSearch from "./pages/food-search.js";
 import UpdateEstablishment from "./pages/update-estab.js";
 import UpdateFood from "./pages/update-food.js";
 import UpdateEstabReview from "./pages/update-estab-review.js";
+import UpdateFoodReview from "./pages/update-food-review.js";
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
   //REVIEWS OF FOOD ITEM UNDER ESTAB
   { path: "/estabs/food/food-review", element: <ReviewsFood /> },
   { path: "/estabs/food/food-review/add-review", element: <AddReview /> },
+  { path: "/estabs/food/food-review/update", element: <UpdateFoodReview /> },
 
   { path: "/estabs/food-query", element: <FoodQuery /> },
 
