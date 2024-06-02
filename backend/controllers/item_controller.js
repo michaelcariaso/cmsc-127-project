@@ -41,7 +41,7 @@ async function searchFoodItem(req, res, item_name) {
     }
 }
 
-export default async function searchFoodType(req, res) {
+async function searchFoodType(req, res) {
     const food_type = req.query.food_type;
     const establishment_id = req.query.establishment_id;
     try {
@@ -67,15 +67,40 @@ export default async function searchFoodType(req, res) {
     }
 }
 
-//item_update string from string builder in 
-async function updateFoodEstablishment(req, res, item_update) {
+async function searchFoodParams (req, res) {
+    const { food_type, min_price, max_price } = req.query;
+  
+    const buildQuery = (food_type, min_price, max_price) => {
+      let conditions = [];
+  
+      if (min_price != "undefined") {
+        conditions.push(`item_price >= ${min_price}`);
+      }
+  
+      if (max_price != "undefined") {
+        conditions.push(`item_price <= ${max_price}`);
+      }
+  
+      if (food_type != "undefined") {
+        conditions.push(`food_type LIKE '${food_type}%'`);
+      }
+  
+      let queryString = `SELECT * FROM food_item WHERE ${conditions.join(' AND ')}`;
+  
+      console.log(queryString);
+  
+      return queryString;
+    };
+  
     try {
-        const result = await pool.query(
-            `UPDATE food_establishment SET ${item_update};`
-        );
-    return result;
+      const [result] = await pool.query(buildQuery(food_type, min_price, max_price));
+      res.status(200).json(result);
     } catch (error) {
-        console.error("Error updating food item:", error);
-        throw error;
+      console.error("Error finding food item:", error);
+      res.status(500).json({ error: "Failed to fetch food with food type" });
+      throw error;
     }
-}
+  };
+
+
+export {searchFoodType, searchFoodParams};

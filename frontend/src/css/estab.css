@@ -97,3 +97,13 @@ padding: 10px;
 .establishment-deets p {
   margin: 5px 0;
 }
+
+.search-food-params{
+  display:inline-flex;
+  flex-direction: column;
+}
+
+.min-max{
+  display:inline-flex;
+  flex-direction: row;
+}
