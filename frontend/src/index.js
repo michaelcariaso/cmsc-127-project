@@ -24,7 +24,8 @@ import FoodNameSearch from "./pages/food-search.js";
 
 import UpdateEstablishment from "./pages/update-estab.js";
 import UpdateFood from "./pages/update-food.js";
-
+import UpdateEstabReview from "./pages/update-estab-review.js";
+import UpdateFoodReview from "./pages/update-food-review.js";
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -41,10 +42,11 @@ const router = createBrowserRouter([
 
   //REVIEWS OF ESTAB
   { path: "/estabs/food-review", element: <ReviewsEstab /> },
+  { path: "/estabs/food-review/update", element: <UpdateEstabReview /> },
   { path: "/estabs/food-review/add-review", element: <AddReview /> },
   //FOOD ITEMS OF ESTAB
 
-  { path: '/estabs/search-food', element: <FoodNameSearch />},
+  { path: "/estabs/search-food", element: <FoodNameSearch /> },
 
   { path: "/estabs/food", element: <EstabFood /> },
   { path: "/estabs/food/update", element: <UpdateFood /> },
@@ -53,6 +55,7 @@ const router = createBrowserRouter([
   //REVIEWS OF FOOD ITEM UNDER ESTAB
   { path: "/estabs/food/food-review", element: <ReviewsFood /> },
   { path: "/estabs/food/food-review/add-review", element: <AddReview /> },
+  { path: "/estabs/food/food-review/update", element: <UpdateFoodReview /> },
 
   { path: "/estabs/food-query", element: <FoodQuery /> },
 

@@ -36,17 +36,21 @@ export default function ReviewsEstabData(props) {
     <div className="review-wrapper">
       <div className="reviews-container">
         <div className="review-header">
-          
-        <h1>Reviews for {establishment_id}</h1>
-        <Link to={"/estabs"}>
-          <button>Back to Establishments</button>
-        </Link>
+          <h1>Reviews for {establishment_id}</h1>
+          <Link to={"/estabs"}>
+            <button>Back to Establishments</button>
+          </Link>
         </div>
         {reviews.map((review) => (
           <div key={review.item_id} className="review">
-              <p>{review["Display Name"]}</p>
-              <p>Review: {review["Review"]}</p>
-              <p>Rating: {review["Rating"]}</p>
+            <p>{review["Display Name"]}</p>
+            <p>Review: {review["Review"]}</p>
+            <p>Rating: {review["Rating"]}</p>
+            <Link
+              to={`/estabs/food-review/update?entry_id=${review["Entry Id"]}`}
+            >
+              <button>UPDATE</button>
+            </Link>
 
             <button
               onClick={(e) => {
@@ -54,22 +58,19 @@ export default function ReviewsEstabData(props) {
                 deleteReview(review.entry_id);
                 window.location.reload();
               }}
-              >
+            >
               DELETE REVIEW
             </button>
           </div>
         ))}
-
       </div>
       <div className="review-menu">
-
-      <Link
-        to={`/estabs/food-review/add-review?establishment_id=${establishment_id}`}
+        <Link
+          to={`/estabs/food-review/add-review?establishment_id=${establishment_id}`}
         >
-        <button>ADD REVIEW</button>
-      </Link>
-
-        </div>
+          <button>ADD REVIEW</button>
+        </Link>
+      </div>
     </div>
   );
 }
