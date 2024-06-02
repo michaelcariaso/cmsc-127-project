@@ -76,10 +76,25 @@ export async function viewAllFoodItems(req, res) {
   // const order = req.query.order;
   try {
     const [rows] = await pool.query(
-      `SELECT * FROM food_item JOIN food_establishment
-        ON food_item.establishment_id=food_establishment.establishment_id
-        WHERE food_establishment.establishment_id= ?
-        ORDER BY food_item.item_price;`,
+      `SELECT 
+         t.item_id, 
+         t.item_name, 
+         t.item_price, 
+         t.food_type, 
+         t.establishment_id, 
+         COALESCE(AVG(food_review.rating), 0) AS "Average Rating"
+       FROM 
+         food_item t 
+       JOIN 
+         food_establishment ON t.establishment_id = food_establishment.establishment_id 
+       LEFT JOIN 
+         food_review ON t.item_id = food_review.item_id 
+       WHERE 
+         food_establishment.establishment_id = ? 
+       GROUP BY 
+         t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id
+       ORDER BY 
+         t.item_price;`,
       [establishment_id]
     );
 
@@ -91,6 +106,7 @@ export async function viewAllFoodItems(req, res) {
       .json({ error: "Failed to fetch food items from the establishment" });
   }
 }
+
 
 // view all food items from an establishment that belong to a food type {meat | veg | etc}
 export async function viewAllFoodItemsWithType(req, res) {

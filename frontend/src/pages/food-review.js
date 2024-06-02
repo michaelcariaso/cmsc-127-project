@@ -36,6 +36,7 @@ const ReviewsFood = () => {
           data={foodReviewData}
           establishment_id={establishment_id}
         />
+        
       </div>
     </>
   );

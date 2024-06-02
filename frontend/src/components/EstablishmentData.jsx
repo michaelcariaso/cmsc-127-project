@@ -32,6 +32,10 @@ export default function EstablishmentData({ data }) {
                   <button>FOOD ITEMS</button>
                 </Link>
               </div>
+              <div>
+                <button>UPDATE</button>
+                <button>DELETE</button>
+              </div>
             </div>
           </div>
         ))}

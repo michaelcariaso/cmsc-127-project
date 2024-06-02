@@ -1,33 +1,33 @@
 .food-container {
-    display: flex;
-  }
-  
-.foodmenu-container {
-display: flex;
-flex-direction: column;
-background-color: rgb(245, 245, 245);
-border-radius: 20px;
-min-width: 30%;
-min-height: 20px;
-align-items: center;
-flex-wrap: wrap;
-text-align: center;
-position: relative;
-margin-bottom: auto;
-margin-left: 10px;
-padding: 10px; 
-}
-  
-.food-shop{
-  display:flex;
-  margin: 0px;
-  padding: 20px;
-  flex-direction: column;
-  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
-.food-sorting{
-  margin-bottom:10px;
+.fooditem-wrapper {
+  display: inline-flex;
+}
+
+.fooditem-estab {
+  min-width: 40%;
+}
+
+.foodmenu-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(245, 245, 245);
+  border-radius: 20px;
+  min-width: 30%;
+  min-height: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  position: relative;
+  margin-bottom: auto;
+  padding: 10px; 
+}
+
+.food-sorting {
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,56 +35,66 @@ padding: 10px;
 }
 
 .food-sorting button,
-.food-sorting p{
+.food-sorting p {
   margin-right: 20px;
   padding: 10px;
 }
 
-.food-container{
+.fooditem-container {
   color: black;
   display: flex;
   flex-wrap: wrap;
   margin: 0px;
-  padding:0px;
+  padding: 0px;
   gap: 10px;
   justify-content: center;
+  width: 100%; /* Ensure this takes the full width of the parent */
 }
 
-.food-group{
+.fooditem-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.food-group {
   display: inline-flex;
   align-items: center;
   border: 1px solid gray;
   border-radius: 20px;
   text-align: center;
-  width: 48%;
+  max-width: 48%;
   min-height: 20vh;
-  max-height: 50vw;
   word-wrap: break-word;
-  background-color:white;
+  background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.food-name {
+  font-size: 120%;
 }
 
 .food-img {
   width: 33%;
 }
 
-.food-img img{
+.food-img img {
   max-width: 100%;
   max-height: 100%;
-  object-fit:cover;
+  object-fit: cover;
   border-radius: 15px;
 }
 
-.food-group button{
+.food-group button {
   margin-top: auto;
   padding: 10px 15px;
 }
 
-.food-deets{
+.food-deets {
   font-size: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   width: 67%;
 }
@@ -92,4 +102,23 @@ padding: 10px;
 .food-deets h1,
 .food-deets p {
   margin: 5px 0;
+}
+
+.search-food-name {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.fsearch
+
+.search-food-name input[type="text"],
+.search-food select{
+  width: 200px;
+}
+
+.add-food-container{
+  padding-top: 40px;
+  border: 10px;
+  border-color: black;
 }
