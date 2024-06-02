@@ -1,61 +1,48 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../css/login.css"
-import axios from 'axios';
+
+import Navbar from "./navbar.js";
 
 const SignUp = () => {
-    const [fname, setFname] = useState();
-    const [mname, setMname] = useState();
-    const [lname, setLname] = useState();
-    const [email, setEmail] = useState();
+    const [uname, setUname] = useState();
+    const [mname, setName] = useState();
+    const [age, setAge] = useState();
     const [pword, setPassword] = useState();
     const [confirmPass, setConfirmPass] = useState();
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
     const handleSignup = (e) => {
         e.preventDefault();
-        if(pword !== confirmPass){
-            alert("Passwords do not match.");
-        }
-        else{
-            axios.post('http://localhost:4000/sign-up', {fname, mname, lname, utype: "customer", email, pword})
-            .then(
-                result=>console.log(result)
-            ).then(
-                navigate('/')
-            )
-            .catch(err=>console.log(err))
-        }  
-       
     }
 
     return (
-        <div class = "login-container">
-            <div class = "login-box">
-                <div>
-                    <h1>SIGN UP</h1>
-                </div>
-
-                <div class = "login-input">
-                    <form id="signup-form" class="signup" onSubmit={handleSignup}>
-                        <input type="text" id="fname" placeholder="First Name*" required onChange={(e) => setFname(e.target.value)}/>
-                        <input type="text" id="mname" placeholder="Middle Name (optional)" onChange={(e) => setMname(e.target.value)}/>
-                        <input type="text" id="lname" placeholder="Last Name*" required onChange={(e) => setLname(e.target.value)}/>
-                        <input type="email" id="email" placeholder="User Email*" required onChange={(e) => setEmail(e.target.value)}/>
-                        <input type="password" id="pword" placeholder="Password*" required onChange={(e) => setPassword(e.target.value)}/>
-                        <input type="password" id="confirmPass" placeholder="Confirm Password*" required onChange={(e) => setConfirmPass(e.target.value)}/>
-                        <button type="submit" id= "loginBtn" >CREATE ACCOUNT</button>
-                    </form>
-
-
+        <>
+            <Navbar />
+            <div class = "login-container">
+                <div class = "login-box">
                     <div>
-                        <p>Already have an account?</p>
-                        <a href='/'>Log in instead</a>
+                        <h1>SIGN UP</h1>
+                    </div>
+
+                    <div class = "login-input">
+                        <form id="signup-form" class="signup" onSubmit={handleSignup}>
+                            <input type="text" id="uname" placeholder="Username*" required onChange={(e) => setUname(e.target.value)}/>
+                            <input type="text" id="lname" placeholder="Display Name*" required onChange={(e) => setName(e.target.value)}/>
+                            <input type="number" id="lname" placeholder="Display Name*" required onChange={(e) => setAge(e.target.value)}/>
+                            <input type="password" id="pword" placeholder="Password*" required onChange={(e) => setPassword(e.target.value)}/>
+                            <input type="password" id="confirmPass" placeholder="Confirm Password*" required onChange={(e) => setConfirmPass(e.target.value)}/>
+                            <button type="submit" id= "loginBtn" >CREATE ACCOUNT</button>
+                        </form>
+                        <div>
+                            <p>Already have an account?</p>
+                            <a href='/'>Log in instead</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
         
     );
 };

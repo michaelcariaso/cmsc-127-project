@@ -1,0 +1,29 @@
+.navbar {
+    background: #ADE1A9;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar nav ul li {
+    display: inline; 
+    margin-right: 20px; 
+  }
+  
+  .navbar nav ul li:last-child {
+    margin-right: 0; 
+  }
+  
+  .navbar nav ul li a {
+    text-decoration: none;
+    color: black;
+  }
+
+  

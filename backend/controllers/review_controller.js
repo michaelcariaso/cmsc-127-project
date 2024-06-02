@@ -1,4 +1,4 @@
-import pool from "mysql_pool";
+import pool from "./mysql_pool.js";
 
 //add food review
 export async function addReview(req, res) {

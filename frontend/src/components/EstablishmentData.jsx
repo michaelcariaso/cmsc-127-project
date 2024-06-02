@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "../css/inventory.css";
+import "../css/estab.css";
 
 export default function EstablishmentData({ data }) {
   const [establishmentData, setEstablishmentData] = useState(data || []);
@@ -12,28 +12,25 @@ export default function EstablishmentData({ data }) {
   return (
     <div className="inventorytable-container">
       <h1>ALL ESTABLISHMENTS</h1>
-      <table className="inventory-table" cellSpacing={0}>
-        <thead>
-          <tr>
-            <th>Establishment Name</th>
-            <th>Address</th>
-            <th>Cuisine</th>
-            <th>Avg. Rating</th>
-            <th>Options</th>
-          </tr>
-        </thead>
-        <tbody>
-          {establishmentData.map((establishment, index) => (
-            <tr key={index}>
-              <td>{establishment["Establishment Name"]}</td>
-              <td>{establishment["Address"]}</td>
-              <td>{establishment["Cuisine"]}</td>
-              <td>{establishment["Average Rating"]}</td>
-              <td className="inv-edit-btn">EDIT</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="establishment-container">
+        {establishmentData.map((establishment) => (
+          <div className="establishment-group" key={establishmentData._id}>
+            <div className="establishment-img">
+              <img src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt={establishment.name} />
+            </div>
+            <div className='establishment-deets'>
+              <h1 className="establishment-name">{establishment["Establishment Name"]}</h1>
+              <p className='establishment-desc'>{establishment["Address"]}</p>
+              <p className='establishment-type'>CUISINE: {establishment["Cuisine"]}</p>
+              <p className="establishment-price">AVG. RATING: {establishment["Average Rating"]}</p>
+              <div className="estab-btn">
+                <button>SEE REVIEWS</button>
+                <button>FOOD ITEMS</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
