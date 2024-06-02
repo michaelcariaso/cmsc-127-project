@@ -116,11 +116,23 @@ export default function AddReviewData({ establishment_id, item_id }) {
           </div>
         </form>
 
-        <Link to={`/estabs/food-review?establishment_id=${establishment_id}`}>
-          <button id="addReview" onClick={validateFields}>
-            SUBMIT REVIEW
-          </button>
-        </Link>
+        {item_id === null && (
+          <Link to={`/estabs/food-review?establishment_id=${establishment_id}`}>
+            <button id="addReview" onClick={validateFields}>
+              SUBMIT REVIEW
+            </button>
+          </Link>
+        )}
+
+        {item_id != null && (
+          <Link
+            to={`/estabs/food/food-review?establishment_id=${establishment_id}&item_id=${item_id}`}
+          >
+            <button id="addReview" onClick={validateFields}>
+              SUBMIT REVIEW
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

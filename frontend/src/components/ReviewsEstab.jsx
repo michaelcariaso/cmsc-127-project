@@ -43,9 +43,6 @@ export default function ReviewsEstabData(props) {
           <div key={review.id} className="review">
             <h2>Review: {review["Review"]}</h2>
             <h2>Rating: {review["Rating"]}</h2>
-            {/* <p>{review.Review}</p>
-          <p>Rating: {review.Rating}</p>
-          <p>Reviewed by: {review["Display Name"]} on {new Date(review.Date).toLocaleDateString()} at {review.Time}</p> */}
           </div>
 
           <button
