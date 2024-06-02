@@ -1,3 +1,4 @@
+import { query } from "express";
 import pool from "./mysql_pool.js";
 
 export async function addFoodItem(req, res) {
@@ -41,21 +42,39 @@ export async function deleteFoodItem(req, res) {
 }
 
 export async function searchFoodItem(req, res) {
-  const { item_name } = req.body.item_name;
-  try {
-    const result = await pool.query(
-      `SELECT * FROM food_item WHERE item_name= ?;`,
-      [item_name]
-    );
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Error finding food item:", error);
-    res.status(500).json({
-      error: "Failed to find food item",
-    });
-    throw error;
+    const { establishment_id, item_name } = req.query;
+    const queryItem = `%${item_name}%`;
+  
+    try {
+      const [result] = await pool.query(
+        `SELECT 
+           t.item_id, 
+           t.item_name, 
+           t.item_price, 
+           t.food_type, 
+           t.establishment_id, 
+           COALESCE(AVG(food_review.rating), 0) AS "Average Rating"
+         FROM 
+           food_item t 
+         JOIN 
+           food_establishment ON t.establishment_id = food_establishment.establishment_id 
+         LEFT JOIN 
+           food_review ON t.item_id = food_review.item_id 
+         WHERE 
+           t.establishment_id = ? AND t.item_name LIKE ?
+         GROUP BY 
+           t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id
+         ORDER BY 
+           t.item_price;`,
+        [establishment_id, queryItem]
+      );
+  
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Failed to fetch food items from the establishment" });
+    }
   }
-}
 
 
 async function searchFoodType(req, res) {

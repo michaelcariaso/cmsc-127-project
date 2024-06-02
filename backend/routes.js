@@ -8,7 +8,6 @@ import {
   viewAllMonthlyReviewsFoodItem,
   viewAllHighAverageRatingEstablishments,
   viewAllFoodItemsOrderByPrice,
-  searchFoodItem,
 } from "./controllers/reports_controller.js";
 
 import { addUser, searchUser } from "./controllers/user_controller.js";
@@ -24,12 +23,14 @@ import {
   addFoodItem,
   deleteFoodItem,
   updateFoodItem,
-  searchFoodParams
+  searchFoodParams,
+  searchFoodItem
 } from "./controllers/item_controller.js";
 
 import {
   addFoodEstablishment,
   searchFoodEstablishment,
+  searchEstabName,
   updateFoodEstablishment,
   deleteFoodEstablishment,
 } from "./controllers/estab_controller.js";
@@ -50,7 +51,7 @@ const setUpRoutes = (app) => {
   app.get("/estabs/food/food-review", viewAllFoodReviewsFoodItem);
   app.get("/estabs/foods/food-review/monthly", viewAllMonthlyReviewsFoodItem);
   app.get("/foods/order-price", viewAllFoodItemsOrderByPrice);
-  app.get("/food", searchFoodItem);
+  app.get("/estabs/search-food", searchFoodItem);
 
   //user
   app.post("/user/add", addUser);
@@ -66,11 +67,13 @@ const setUpRoutes = (app) => {
   app.post("/estabs/edit", updateFoodEstablishment);
   app.post("/estabs/delete", deleteFoodEstablishment);
   app.get("/estabs/search", searchFoodEstablishment);
+  app.get("/estabs/search-name", searchEstabName)
 
   //food item
   app.get("/estabs/food-type", searchFoodType);
 
   app.get('/estabs/food-query', searchFoodParams);
+
 
   app.post("/estabs/food/add", addFoodItem);
   app.post("/estabs/food/delete", deleteFoodItem);

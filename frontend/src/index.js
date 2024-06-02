@@ -18,6 +18,8 @@ import AddEstablishment from "./components/AddEstablishment.jsx";
 
 import FoodType from "./pages/food-type.js";
 import FoodQuery from "./pages/food-query.js";
+import EstabSearch from "./pages/estab-search.js";
+import FoodNameSearch from "./pages/food-search.js";
 
 
 const router = createBrowserRouter([
@@ -28,11 +30,13 @@ const router = createBrowserRouter([
   { path: "/estabs", element: <Establishments /> },
   { path: "/estabs/high-rating", element: <EstabRating /> },
   { path: "/estabs/add-establishment", element: <AddEstablishment /> },
+  { path: "/estabs/search-name", element: <EstabSearch /> },
   //REVIEWS OF ESTAB
   { path: "/estabs/food-review", element: <ReviewsEstab /> },
   { path: "/estabs/food-review/add-review", element: <AddReview /> },
   //FOOD ITEMS OF ESTAB
   { path: '/estabs/food', element: <EstabFood />},
+  { path: '/estabs/search-food', element: <FoodNameSearch />},
   { path: '/estabs/food-type', element: <FoodType />},
 
   //REVIEWS OF FOOD ITEM UNDER ESTAB
