@@ -34,7 +34,6 @@ export default function EstablishmentData({ data }) {
 
   return (
     <div className="inventorytable-container">
-      <h1>ALL ESTABLISHMENTS</h1>
       <div className="establishment-container">
         {establishmentData.map((establishment) => (
           <div

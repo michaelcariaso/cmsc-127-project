@@ -18,8 +18,13 @@ import AddEstablishment from "./components/AddEstablishment.jsx";
 
 import FoodType from "./pages/food-type.js";
 import FoodQuery from "./pages/food-query.js";
+
+import EstabSearch from "./pages/estab-search.js";
+import FoodNameSearch from "./pages/food-search.js";
+
 import UpdateEstablishment from "./pages/update-estab.js";
 import UpdateFood from "./pages/update-food.js";
+
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -29,11 +34,18 @@ const router = createBrowserRouter([
   { path: "/estabs", element: <Establishments /> },
   { path: "/estabs/high-rating", element: <EstabRating /> },
   { path: "/estabs/add-establishment", element: <AddEstablishment /> },
+
+  { path: "/estabs/search-name", element: <EstabSearch /> },
+
   { path: "/estabs/update", element: <UpdateEstablishment /> },
+
   //REVIEWS OF ESTAB
   { path: "/estabs/food-review", element: <ReviewsEstab /> },
   { path: "/estabs/food-review/add-review", element: <AddReview /> },
   //FOOD ITEMS OF ESTAB
+
+  { path: '/estabs/search-food', element: <FoodNameSearch />},
+
   { path: "/estabs/food", element: <EstabFood /> },
   { path: "/estabs/food/update", element: <UpdateFood /> },
   { path: "/estabs/food-type", element: <FoodType /> },
