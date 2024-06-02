@@ -14,7 +14,7 @@ const ReviewsEstab = () => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/estabs/food-review?establishment_id=${establishment_id}`
+          `http://localhost:4000/estabs/review?establishment_id=${establishment_id}`
         );
         const data = await response.json();
         setEstabReviewData(data);
@@ -31,7 +31,10 @@ const ReviewsEstab = () => {
     <>
       <Navbar />
       <div className="reviews-container">
-        <ReviewsEstabData data={estabReviewData} />
+        <ReviewsEstabData
+          data={estabReviewData}
+          establishment_id={establishment_id}
+        />
       </div>
     </>
   );

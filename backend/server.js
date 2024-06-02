@@ -1,11 +1,13 @@
-import express from 'express';
-import cors from 'cors';
-import setUpRoutes from './routes.js'; // Adjust the path if necessary
+import express from "express";
+import cors from "cors";
+import setUpRoutes from "./routes.js"; // Adjust the path if necessary
 
 const app = express();
 const port = 4000;
 
 app.use(cors()); // Enable CORS for all routes
+
+app.use(express.json());
 
 // Set up routes
 setUpRoutes(app);

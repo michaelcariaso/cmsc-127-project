@@ -41,13 +41,13 @@ rating INT(1) NOT NULL,
 review_date date NOT NULL,
 review_time time NOT NULL,
 username VARCHAR(20) NOT NULL,
-establishment_id VARCHAR(20),
-item_id VARCHAR(20),
+establishment_id VARCHAR(20) NULL,
+item_id VARCHAR(20) NULL,
 CONSTRAINT food_review_pk PRIMARY KEY (entry_id),
 CONSTRAINT food_review_username FOREIGN KEY(username) REFERENCES user(username),
-CONSTRAINT food_review_establishment_id FOREIGN KEY(establishment_id) REFERENCES
+FOREIGN KEY(establishment_id) REFERENCES
 food_establishment(establishment_id),
-CONSTRAINT food_review_item_id FOREIGN KEY(item_id) REFERENCES food_item(item_id)
+FOREIGN KEY(item_id) REFERENCES food_item(item_id)
 );
 
 INSERT INTO user (username, user_password, display_name, age) VALUES ("mike123", "12345", "Mike", 35);
@@ -55,20 +55,20 @@ INSERT INTO user (username, user_password, display_name, age) VALUES ("jeboy456"
 INSERT INTO user (username, user_password, display_name, age) VALUES ("alex789", "12345", "Alex", 35);
 
 --insert food establishment
-INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine, establishment_cost) 
-VALUES ("estab1", "Mcdonald's", "Lopez Avenue", "American Fast Food", "$1000");
+INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine) 
+VALUES ("estab1", "Mcdonald's", "Lopez Avenue", "American Fast Food");
 
 --insert food establishment
-INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine, establishment_cost) 
-VALUES ("estab2", "Mang Inasal", "SM North Edsa", "Filipino Fast Food", "$1000");
+INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine) 
+VALUES ("estab2", "Mang Inasal", "SM North Edsa", "Filipino Fast Food");
 
 --insert food establishment
-INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine, establishment_cost) 
-VALUES ("estab3", "Pizza Hut", "Manila", "Pizza Shop", "$2000");
+INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine) 
+VALUES ("estab3", "Pizza Hut", "Manila", "Pizza Shop");
 
 --insert food establishment
-INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine, establishment_cost) 
-VALUES ("estab4", "Dairy Queen", "Cubao", "Ice Cream Shop", "$3000");
+INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine) 
+VALUES ("estab4", "Dairy Queen", "Cubao", "Ice Cream Shop");
 
 
 --insert food item
