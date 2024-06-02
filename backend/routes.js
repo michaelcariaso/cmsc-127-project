@@ -19,7 +19,12 @@ import {
   deleteReview,
 } from "./controllers/review_controller.js";
 import searchFoodEstablishment from "./controllers/estab_controller.js";
-import searchFoodType from "./controllers/item_controller.js";
+import {
+  searchFoodType,
+  addFoodItem,
+  deleteFoodItem,
+  updateFoodItem,
+} from "./controllers/item_controller.js";
 
 import {
   addFoodEstablishment,
@@ -61,6 +66,9 @@ const setUpRoutes = (app) => {
 
   //food item
   app.get("/estabs/food-type", searchFoodType);
+  app.post("/estabs/food/add", addFoodItem);
+  app.post("/estabs/food/delete", deleteFoodItem);
+  app.post("/estabs/food/update", updateFoodItem);
 };
 
 export default setUpRoutes;

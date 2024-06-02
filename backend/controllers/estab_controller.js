@@ -6,7 +6,7 @@ export async function addFoodEstablishment(req, res) {
       req.body;
     const result = await pool.query(
       `INSERT INTO food_establishment(establishment_id, establishment_name, establishment_address, establishment_cuisine)
-      VALUES ((SELECT CONCAT(?,"-",COUNT(f.establishment_id)) FROM food_establishment f),?,?,?);`,
+      VALUES ((SELECT CONCAT(?,"-",(COUNT(f.establishment_id)+1)) FROM food_establishment f),?,?,?);`,
       [
         establishment_name,
         establishment_name,
