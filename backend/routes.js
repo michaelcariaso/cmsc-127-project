@@ -25,7 +25,6 @@ import {
   addFoodEstablishment,
   updateFoodEstablishment,
   deleteFoodEstablishment,
-  searchFoodEstablishment,
 } from "./controllers/estab_controller.js";
 
 const setUpRoutes = (app) => {
@@ -61,7 +60,7 @@ const setUpRoutes = (app) => {
   app.get("/estabs/search", searchFoodEstablishment);
 
   //food item
-  app.get("/estabs/food-type", searchFoodType)
+  app.get("/estabs/food-type", searchFoodType);
 };
 
 export default setUpRoutes;
