@@ -24,7 +24,8 @@ import {
   addFoodItem,
   deleteFoodItem,
   updateFoodItem,
-  searchFoodParams
+  searchFoodParams,
+  findFood,
 } from "./controllers/item_controller.js";
 
 import {
@@ -33,7 +34,6 @@ import {
   updateFoodEstablishment,
   deleteFoodEstablishment,
 } from "./controllers/estab_controller.js";
-
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => {
@@ -70,7 +70,8 @@ const setUpRoutes = (app) => {
   //food item
   app.get("/estabs/food-type", searchFoodType);
 
-  app.get('/estabs/food-query', searchFoodParams);
+  app.get("/estabs/food-query", searchFoodParams);
+  app.get("/estabs/food/findOne", findFood);
 
   app.post("/estabs/food/add", addFoodItem);
   app.post("/estabs/food/delete", deleteFoodItem);
