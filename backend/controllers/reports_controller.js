@@ -8,7 +8,8 @@ export async function viewAllEstablishments(req, res) {
               food_establishment.establishment_address AS "Address",
               food_establishment.establishment_cuisine AS "Cuisine",
               food_establishment.establishment_cost AS "Price Range",
-              AVG(food_review.rating) AS "Average Rating"
+              AVG(food_review.rating) AS "Average Rating",
+              food_establishment.establishment_id AS "Establishment Id"
          FROM food_establishment 
          JOIN food_review ON food_establishment.establishment_id = food_review.establishment_id
          GROUP BY food_establishment.establishment_id
@@ -78,7 +79,7 @@ export async function viewAllFoodItems(req, res) {
     const [rows] = await pool.query(
       `SELECT * FROM food_item JOIN food_establishment
         ON food_item.establishment_id=food_establishment.establishment_id
-        WHERE food_establishment.establishment_name= ?
+        WHERE food_establishment.establishment_id= ?
         ORDER BY food_item.item_price ${order};`,
       [establishment_id]
     );
