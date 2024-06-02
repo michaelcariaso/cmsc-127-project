@@ -11,13 +11,14 @@ const EstabFoods = () => {
   const [estabFoodData, setEstabFoodData] = useState([]);
 
   const [selectedFoodType, setSelectedFoodType] = useState("meat");
+  const [sortType, setSortType] = useState("default");
   const [findFood, setFindFood] = useState();
 
   useEffect(() => {
     const fetchFood = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/estabs/food?establishment_id=${establishment_id}`
+          `http://localhost:4000/estabs/food?establishment_id=${establishment_id}&sort_type=${sortType}`
         );
         const data = await response.json();
         setEstabFoodData(data);
@@ -27,8 +28,11 @@ const EstabFoods = () => {
     };
 
     fetchFood();
-  }, [establishment_id]);
+  }, [establishment_id, sortType]);
 
+  const handleSelectChange = (event) => {
+    setSortType(event.target.value);
+  };
 
   return (
     <>
@@ -66,6 +70,14 @@ const EstabFoods = () => {
               <button>SEARCH NAME</button>
             </Link>
           </div>
+          <div>
+            <label for="food-sort-filter">SORT BY PRICE</label>
+              <select name="food-sort-filter" id="food-sort" onChange={handleSelectChange}>
+                <option value="default">Default</option>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc.</option>
+              </select>
+            </div>
         </div>
       </div>
     </>

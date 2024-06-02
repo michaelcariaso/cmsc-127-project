@@ -24,7 +24,7 @@ import {
   deleteFoodItem,
   updateFoodItem,
   searchFoodParams,
-  searchFoodItem
+  searchFoodItem,
   findFood,
 } from "./controllers/item_controller.js";
 

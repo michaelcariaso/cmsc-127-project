@@ -72,30 +72,54 @@ export async function viewAllFoodReviewsFoodItem(req, res) {
 // view all food items from an establishment
 export async function viewAllFoodItems(req, res) {
   const establishment_id = req.query.establishment_id;
-  // const order = req.query.order;
+  const sort_type = req.query.sort_type;
+
+  const buildSort = (sort_type) => {
+    switch (sort_type) {
+      case "default":
+        return '';
+      case "asc":
+        return 'ORDER BY t.item_price';
+      case "desc":
+        return 'ORDER BY t.item_price desc';
+      default:
+        return '';  // Default case returns an empty string
+    }
+  };
+
+  const sortQuery = buildSort(sort_type);
+
+  // Construct the SQL query
+  let sqlQuery = `
+    SELECT 
+      t.item_id, 
+      t.item_name, 
+      t.item_price, 
+      t.food_type, 
+      t.establishment_id, 
+      COALESCE(AVG(food_review.rating), 0) AS "Average Rating" 
+    FROM 
+      food_item t 
+    JOIN 
+      food_establishment 
+    ON 
+      t.establishment_id = food_establishment.establishment_id 
+    LEFT JOIN 
+      food_review 
+    ON 
+      t.item_id = food_review.item_id 
+    WHERE 
+      food_establishment.establishment_id = ?
+    GROUP BY 
+      t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id`;
+
+  if (sortQuery !== '') {
+    sqlQuery += ` ${sortQuery};`;
+  }
+
+  console.log(sqlQuery);
   try {
-    const [rows] = await pool.query(
-      `SELECT 
-         t.item_id, 
-         t.item_name, 
-         t.item_price, 
-         t.food_type, 
-         t.establishment_id, 
-         COALESCE(AVG(food_review.rating), 0) AS "Average Rating"
-       FROM 
-         food_item t 
-       JOIN 
-         food_establishment ON t.establishment_id = food_establishment.establishment_id 
-       LEFT JOIN 
-         food_review ON t.item_id = food_review.item_id 
-       WHERE 
-         food_establishment.establishment_id = ? 
-       GROUP BY 
-         t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id
-       ORDER BY 
-         t.item_price;`,
-      [establishment_id]
-    );
+    const [rows] = await pool.query(sqlQuery, [establishment_id]);
 
     res.status(200).json(rows);
   } catch (error) {
