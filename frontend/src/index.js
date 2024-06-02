@@ -17,6 +17,7 @@ import EstabRating from "./pages/view-estabs-rating.js";
 import AddEstablishment from "./components/AddEstablishment.jsx";
 
 import FoodType from "./pages/food-type.js";
+import FoodQuery from "./pages/food-query.js";
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
   //REVIEWS OF FOOD ITEM UNDER ESTAB
   { path: "/estabs/food/food-review", element: <ReviewsFood /> },
   { path: "/estabs/food/food-review/add-review", element: <AddReview /> },
+  
+  { path: "/estabs/food-query", element: <FoodQuery />},
 
   // //REVIEWS OF FOOD ITEM UNDER ESTAB
   // { path: '/estabs/food/food-review/monthly', element: <ReviewsFoodMonth />},

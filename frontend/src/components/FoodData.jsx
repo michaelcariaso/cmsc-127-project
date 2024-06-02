@@ -15,7 +15,7 @@ export default function EstabFoodData({ data, establishment_id }) {
     const fetchEstab = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/estab/search?establishment_id=${establishment_id}`
+          `http://localhost:4000/estabs/search?establishment_id=${establishment_id}`
         );
         const data = await response.json();
         setEstabData(data);
@@ -27,6 +27,28 @@ export default function EstabFoodData({ data, establishment_id }) {
 
     fetchEstab();
   }, [establishment_id]);
+
+  //delete food function
+  function deleteFood(item_id) {
+    fetch("http://localhost:4000/estabs/food/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item_id: item_id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete food");
+        }
+
+        //alert message for sucess
+        alert("Food deleted successfully");
+
+        return response.text();
+      })
+      .then((body) => {
+        console.log(body);
+      });
+  }
 
   return (
     <div className="inventorytable-container">
@@ -47,7 +69,9 @@ export default function EstabFoodData({ data, establishment_id }) {
             </div>
             <div className="food-deets">
               <h1 className="food-name">{food.item_name}</h1>
-              <p className="food-price">AVG. RATING: {food["Average Rating"]}</p>
+              <p className="food-price">
+                AVG. RATING: {food["Average Rating"]}
+              </p>
               <div className="estab-btn">
                 <Link
                   to={`/estabs/food/food-review?establishment_id=${food.establishment_id}&item_id=${food.item_id}`}
@@ -57,7 +81,15 @@ export default function EstabFoodData({ data, establishment_id }) {
               </div>
               <div>
                 <button>UPDATE</button>
-                <button>DELETE</button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent click event from propagating
+                    deleteFood(food.item_id);
+                    window.location.reload();
+                  }}
+                >
+                  DELETE
+                </button>
               </div>
             </div>
           </div>
