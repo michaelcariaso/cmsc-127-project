@@ -7,8 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import LogIn from './pages/log-in.js';
 import SignUp from './pages/sign-up.js';
 
-
 import Establishments from './pages/view-establishments';
+import ReviewsEstab from './pages/estab-review.js';
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
   { path: '/sign-up', element: <SignUp/>},
   //MENU
   { path: '/estabs', element: <Establishments/>},
+  { path: '/estabs/food-review', element: <ReviewsEstab />},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
