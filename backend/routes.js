@@ -1,6 +1,6 @@
 import {
   viewAllEstablishments,
-  viewAllFoodReviewsEstablishment,
+  viewAllReviewsEstablishment,
   viewAllFoodReviewsFoodItem,
   viewAllFoodItems,
   viewAllFoodItemsWithType,
@@ -29,7 +29,7 @@ const setUpRoutes = (app) => {
   //reports
   app.get("/estabs", viewAllEstablishments);
   app.get("/estabs/high-rating", viewAllHighAverageRatingEstablishments);
-  app.get("/estabs/food-review", viewAllFoodReviewsEstablishment);
+  app.get("/estabs/review", viewAllReviewsEstablishment);
   app.get("/estabs/food-review/monthly", viewAllMonthlyReviewsEstablishment);
   app.get("/estabs/food", viewAllFoodItems);
   app.get("/estabs/food/type", viewAllFoodItemsWithType);

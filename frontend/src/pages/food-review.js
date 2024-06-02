@@ -35,6 +35,7 @@ const ReviewsFood = () => {
         <ReviewsFoodData
           data={foodReviewData}
           establishment_id={establishment_id}
+          item_id={item_id}
         />
         
       </div>

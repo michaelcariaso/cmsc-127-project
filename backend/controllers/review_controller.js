@@ -2,19 +2,42 @@ import pool from "./mysql_pool.js";
 
 //add food review
 export async function addReview(req, res) {
-  const { review, rating, username, establishment_id, item_id } = req.body;
+  console.log(req.body);
+  const review = req.body.review;
+  const rating = req.body.rating;
+  const username = req.body.username;
+  const establishment_id = req.body.establishment_id;
+  const item_id = req.body.item_id;
 
-  try {
-    const [rows] = await pool.query(
-      `INSERT INTO food_review (entry_id, review, rating, review_date, review_time, username, establishment_id, item_id) VALUES (UUID(), ?, ?, CURDATE(), CURTIME(), ?, ?, ?);`,
-      [review, rating, username, establishment_id, item_id]
-    );
-    res.json(rows);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "Failed to insert food review to the database" });
+  //establishment review
+  if (!req.body.item_id) {
+    try {
+      const [rows] = await pool.query(
+        `INSERT INTO food_review (entry_id, review, rating, review_date, review_time, username, establishment_id) VALUES (LEFT(UUID(), 20), ?, ?, CURDATE(), CURTIME(), ?, ?);`,
+        [review, rating, username, establishment_id]
+      );
+      res.json(rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Failed to insert establishment review to the database",
+      });
+    }
+  }
+  //food review
+  else {
+    try {
+      const [rows] = await pool.query(
+        `INSERT INTO food_review (entry_id, review, rating, review_date, review_time, username, establishment_id, item_id) VALUES (LEFT(UUID(), 20), ?, ?, CURDATE(), CURTIME(), ?, ?, ?);`,
+        [review, rating, username, establishment_id, item_id]
+      );
+      res.json(rows);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Failed to insert food review to the database" });
+    }
   }
 }
 

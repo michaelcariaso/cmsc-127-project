@@ -21,18 +21,17 @@ export async function viewAllEstablishments(req, res) {
   }
 }
 
-// view all food reviews for an establishment
-export async function viewAllFoodReviewsEstablishment(req, res) {
+// view all reviews for an establishment
+export async function viewAllReviewsEstablishment(req, res) {
   const establishment_id = req.query.establishment_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.establishment_id, food_establishment.establishment_name AS
+      `SELECT food_establishment.establishment_id, food_review.entry_id, food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display Name",
       review_date AS "Date", review_time AS "Time"
-        FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
-        JOIN food_establishment ON food_review.establishment_id=food_establishment.establishment_id
-        JOIN user ON user.username=food_review.username WHERE food_establishment.establishment_id= ? ORDER BY food_review.entry_id,
-        food_review.username, food_review.establishment_id, food_review.item_id; `,
+        FROM food_review JOIN food_establishment ON food_review.establishment_id=food_establishment.establishment_id
+        JOIN user ON user.username=food_review.username WHERE food_establishment.establishment_id= ? AND food_review.item_id IS NULL ORDER BY food_review.entry_id,
+        food_review.username, food_review.establishment_id`,
       [establishment_id]
     );
 
@@ -50,7 +49,7 @@ export async function viewAllFoodReviewsFoodItem(req, res) {
   const item_id = req.query.item_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.item_name AS "Food Name", food_establishment.establishment_name AS
+      `SELECT food_item.item_name AS "Food Name", food_review.entry_id, food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
       Name", review_date AS "Date", review_time AS "Time"
       FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
