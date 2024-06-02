@@ -11,7 +11,7 @@ const Establishments = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/estabs'); // Corrected endpoint with full path
+        const response = await fetch('http://localhost:4000/estabs');
         const data = await response.json();
         setEstablishmentData(data);
       } catch (error) {

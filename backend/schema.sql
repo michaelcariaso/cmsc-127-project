@@ -18,7 +18,6 @@ establishment_id VARCHAR(10) NOT NULL,
 establishment_name VARCHAR(20) NOT NULL,
 establishment_address VARCHAR(100) NOT NULL,
 establishment_cuisine VARCHAR(20) NOT NULL,
-establishment_cost VARCHAR(5) NOT NULL,
 CONSTRAINT food_establishment_pk PRIMARY KEY(establishment_id)
 );
 

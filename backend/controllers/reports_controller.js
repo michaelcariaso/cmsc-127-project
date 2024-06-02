@@ -27,7 +27,7 @@ export async function viewAllFoodReviewsEstablishment(req, res) {
   const establishment_id = req.query.establishment_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.establishment_id, food_item.item_name AS "Food Name", food_establishment.establishment_name AS
+      `SELECT food_item.establishment_id, food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display Name",
       review_date AS "Date", review_time AS "Time"
         FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
@@ -74,13 +74,13 @@ export async function viewAllFoodReviewsFoodItem(req, res) {
 // view all food items from an establishment
 export async function viewAllFoodItems(req, res) {
   const establishment_id = req.query.establishment_id;
-  const order = req.query.order;
+  // const order = req.query.order;
   try {
     const [rows] = await pool.query(
       `SELECT * FROM food_item JOIN food_establishment
         ON food_item.establishment_id=food_establishment.establishment_id
-        WHERE food_establishment.establishment_name= ?
-        ORDER BY food_item.item_price ${order};`,
+        WHERE food_establishment.establishment_id= ?
+        ORDER BY food_item.item_price;`,
       [establishment_id]
     );
 
