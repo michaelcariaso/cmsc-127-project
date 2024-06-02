@@ -6,15 +6,15 @@ import '../css/estab.css';
 import Navbar from "./navbar.js";
 import { Link } from "react-router-dom";
 
-const Establishments = () => {
-  const [establishmentData, setEstablishmentData] = useState([]);
+const EstabRating = () => {
+  const [estabRatingData, setEstabRatingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/estabs');
+        const response = await fetch('http://localhost:4000/estabs/high-rating');
         const data = await response.json();
-        setEstablishmentData(data);
+        setEstabRatingData(data);
       } catch (error) {
         console.error('Error fetching establishment data:', error);
       }
@@ -26,12 +26,13 @@ const Establishments = () => {
   return (
     <>
       <Navbar />
+      <h1>SHOWING ESTABLISHMENTS WITH HIGH AVERAGE RATING</h1>
       <div className = "estab-container">
-        <EstablishmentData data={establishmentData} />
+        <EstablishmentData data={estabRatingData} />
         <div className = "estabmenu-container">
           <h1>MENU</h1>
-          <Link to={'/estabs/high-rating'}>
-            <button>Show High Rating</button>
+          <Link to={'/estabs'}>
+            <button>Back to Establishments</button>
           </Link>
         </div>
       </div>
@@ -39,4 +40,4 @@ const Establishments = () => {
   );
 };
 
-export default Establishments;
+export default EstabRating;

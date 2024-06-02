@@ -1,22 +1,24 @@
+// ReviewsEstab.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import Navbar from "./navbar";
-import ReviewsEstabData from "../components/ReviewsEstab";
+import ReviewsFoodData from "../components/ReviewsFood";
 
-const ReviewsEstab = () => {
+const ReviewsFood = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+  const item_id = params.get("item_id");
   const establishment_id = params.get("establishment_id");
-  const [estabReviewData, setEstabReviewData] = useState([]);
+  const [foodReviewData, setFoodReviewData] = useState([]);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/estabs/food-review?establishment_id=${establishment_id}`
+          `http://localhost:4000/estabs/food/food-review?item_id=${item_id}`
         );
         const data = await response.json();
-        setEstabReviewData(data);
+        setFoodReviewData(data);
         console.log(data);
       } catch (error) {
         console.error("Failed to fetch reviews", error);
@@ -30,10 +32,13 @@ const ReviewsEstab = () => {
     <>
       <Navbar />
       <div className="reviews-container">
-        <ReviewsEstabData data={estabReviewData} />
+        <ReviewsFoodData
+          data={foodReviewData}
+          establishment_id={establishment_id}
+        />
       </div>
     </>
   );
 };
 
-export default ReviewsEstab;
+export default ReviewsFood;

@@ -28,7 +28,9 @@ export default function EstablishmentData({ data }) {
                 <Link to={`/estabs/food-review?establishment_id=${establishment.establishment_id}`}>
                   <button>SEE REVIEWS</button>
                 </Link>
-                <button>FOOD ITEMS</button>
+                <Link to={`/estabs/food?establishment_id=${establishment.establishment_id}`}>
+                  <button>FOOD ITEMS</button>
+                </Link>
               </div>
             </div>
           </div>
