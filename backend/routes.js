@@ -18,6 +18,7 @@ import {
   updateReview,
   deleteReview,
 } from "./controllers/review_controller.js";
+
 import searchFoodEstablishment from "./controllers/estab_controller.js";
 import {
   searchFoodType,
@@ -28,9 +29,16 @@ import {
 
 import {
   addFoodEstablishment,
+  searchFoodEstablishment,
   updateFoodEstablishment,
   deleteFoodEstablishment,
 } from "./controllers/estab_controller.js";
+
+import {
+  searchFoodType,
+  searchFoodParams
+
+} from "./controllers/item_controller.js";
 
 const setUpRoutes = (app) => {
   app.get("/", (req, res) => {
@@ -66,6 +74,9 @@ const setUpRoutes = (app) => {
 
   //food item
   app.get("/estabs/food-type", searchFoodType);
+
+  app.get('/estabs/food-query', searchFoodParams);
+
   app.post("/estabs/food/add", addFoodItem);
   app.post("/estabs/food/delete", deleteFoodItem);
   app.post("/estabs/food/update", updateFoodItem);

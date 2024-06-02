@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import EstablishmentData from "../components/EstablishmentData";
-
-import "../css/estab.css";
-
 import Navbar from "./navbar.js";
-import { Link } from "react-router-dom";
+import EstablishmentData from "../components/EstablishmentData.jsx";
+import { Link, useNavigate } from "react-router-dom";
 
 const Establishments = () => {
   const [establishmentData, setEstablishmentData] = useState([]);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [foodType, setFoodType] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +24,21 @@ const Establishments = () => {
     fetchData();
   }, []);
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    // Replace empty strings with null
+    const queryParams = {
+      min_price: minPrice === "" ? "undefined" : minPrice,
+      max_price: maxPrice === "" ? "undefined" : maxPrice,
+      food_type: foodType === "" ? "undefined" : foodType,
+    };
+
+    const queryString = new URLSearchParams(queryParams).toString();
+
+    navigate(`/estabs/food-query?${queryString}`);
+  };
+
   return (
     <>
       <Navbar />
@@ -36,6 +52,37 @@ const Establishments = () => {
           <Link to={"/estabs/add-establishment"}>
             <button>Add Food Establishment</button>
           </Link>
+          <form className="search-food-params" onSubmit={handleSearchSubmit}>
+            <h1>CUSTOM SEARCH</h1>
+            <div className="min-max">
+              <div>
+                <label htmlFor="min-price">Min Price</label>
+                <input
+                  name="min-price"
+                  type="text"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="max-price">Max Price</label>
+                <input
+                  name="max-price"
+                  type="text"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                />
+              </div>
+            </div>
+            <label htmlFor="type">Food Type</label>
+            <input
+              name="type"
+              type="text"
+              value={foodType}
+              onChange={(e) => setFoodType(e.target.value)}
+            />
+            <button type="submit">SUBMIT SEARCH</button>
+          </form>
         </div>
       </div>
     </>

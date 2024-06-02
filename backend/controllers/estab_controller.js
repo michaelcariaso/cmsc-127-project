@@ -1,6 +1,6 @@
 import pool from "./mysql_pool.js";
 
-export async function addFoodEstablishment(req, res) {
+async function addFoodEstablishment(req, res) {
   try {
     const { establishment_name, establishment_address, establishment_cuisine } =
       req.body;
@@ -20,6 +20,7 @@ export async function addFoodEstablishment(req, res) {
     throw error;
   }
 }
+
 
 export async function deleteFoodEstablishment(req, res) {
   const establishment_id = req.body.establishment_id;
@@ -50,7 +51,8 @@ export async function deleteFoodEstablishment(req, res) {
   }
 }
 
-export default async function searchFoodEstablishment(req, res) {
+async function searchFoodEstablishment(req, res) {
+
   const establishment_id = req.query.establishment_id;
 
   try {
@@ -69,7 +71,7 @@ export default async function searchFoodEstablishment(req, res) {
 }
 
 //estab_update string from string builder in
-export async function updateFoodEstablishment(req, res, estab_update) {
+async function updateFoodEstablishment(req, res, estab_update) {
   try {
     const result = await pool.query(
       `UPDATE food_establishment SET ${estab_update};`
@@ -80,3 +82,5 @@ export async function updateFoodEstablishment(req, res, estab_update) {
     throw error;
   }
 }
+
+export {addFoodEstablishment, deleteFoodEstablishment, searchFoodEstablishment, updateFoodEstablishment};
