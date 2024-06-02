@@ -34,17 +34,23 @@ export async function deleteFoodEstablishment(req, res, establishment_id) {
   }
 }
 
-export async function searchFoodEstablishment(req, res, establishment_name) {
-  try {
-    const result = await pool.query(
-      `SELECT * FROM food_establishment WHERE establishment_name= ?;`,
-      [establishment_name]
-    );
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Error deleting food establishment:", error);
-    throw error;
-  }
+
+export default async function searchFoodEstablishment(req, res) {
+  const establishment_id = req.query.establishment_id;
+
+    try {
+        const [result] = await pool.query(
+            `SELECT * FROM food_establishment WHERE establishment_id= ?;`,
+        [establishment_id]
+      );
+      res.status(200).json(result);
+    } catch (error) {
+      console.error("Error deleting food establishment:", error);
+      res
+      .status(500)
+      .json({ error: "Failed to fetch food reviews for the food item" });
+      throw error;
+    }
 }
 
 //estab_update string from string builder in

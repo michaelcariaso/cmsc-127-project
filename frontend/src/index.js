@@ -12,8 +12,12 @@ import ReviewsEstab from "./pages/estab-review.js";
 import EstabFood from "./pages/view-food.js";
 import ReviewsFood from "./pages/food-review.js";
 import AddReview from "./pages/add-review.js";
+
 import EstabRating from "./pages/view-estabs-rating.js";
 import AddEstablishment from "./components/AddEstablishment.jsx";
+
+import FoodType from "./pages/food-type.js";
+
 
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
@@ -27,12 +31,13 @@ const router = createBrowserRouter([
   { path: "/estabs/food-review", element: <ReviewsEstab /> },
   { path: "/estabs/food-review/add-review", element: <AddReview /> },
   //FOOD ITEMS OF ESTAB
-  { path: "/estabs/food", element: <EstabFood /> },
+  { path: '/estabs/food', element: <EstabFood />},
+  { path: '/estabs/food-type', element: <FoodType />},
+
   //REVIEWS OF FOOD ITEM UNDER ESTAB
   { path: "/estabs/food/food-review", element: <ReviewsFood /> },
   { path: "/estabs/food/food-review/add-review", element: <AddReview /> },
 
-  // { path: '/estabs/food/type', element: <FoodType />},
   // //REVIEWS OF FOOD ITEM UNDER ESTAB
   // { path: '/estabs/food/food-review/monthly', element: <ReviewsFoodMonth />},
   // { path: '/foods/order-price', element: <EstabFood />},

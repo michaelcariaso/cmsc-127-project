@@ -2,21 +2,43 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "../css/food.css";
 
-export default function FoodData({ data }) {
+export default function EstabFoodData({ data, establishment_id }) {
+  const [foodData, setFoodData] = useState(data || []);
+  const [estabData, setEstabData] = useState([]);
+
   useEffect(() => {
-    console.log("Props Data:", data); // Log props data
+    console.log("Props Data:", data);
     setFoodData(data);
   }, [data]);
 
-  const [foodData, setFoodData] = useState(data || []);
+  useEffect(() => {
+    const fetchEstab = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/estab/search?establishment_id=${establishment_id}`
+        );
+        const data = await response.json();
+        setEstabData(data);
+        console.log("Fetched Establishment Data:", data);
+      } catch (error) {
+        console.error("Error fetching establishment data:", error);
+      }
+    };
 
-  console.log(data);
+    fetchEstab();
+  }, [establishment_id]);
+
   return (
     <div className="inventorytable-container">
-      <h1>FOOD ITEMS</h1>
-      <div className="food-container">
+      <div className="fooditem-header">
+        <h1>FOOD ITEMS OF {estabData[0]?.establishment_name}</h1>
+        <Link to={"/estabs"}>
+          <button>BACK TO ESTABLISHMENTS</button>
+        </Link>
+      </div>
+      <div className="fooditem-container">
         {foodData.map((food) => (
-          <div className="food-group" key={food._id}>
+          <div className="food-group" key={food.item_id}>
             <div className="food-img">
               <img
                 src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -24,10 +46,8 @@ export default function FoodData({ data }) {
               />
             </div>
             <div className="food-deets">
-              <h1 className="food-name">{food["item_name"]}</h1>
-              <p className="food-price">
-                AVG. RATING: {food["Average Rating"]}
-              </p>
+              <h1 className="food-name">{food.item_name}</h1>
+              <p className="food-price">AVG. RATING: {food["Average Rating"]}</p>
               <div className="estab-btn">
                 <Link
                   to={`/estabs/food/food-review?establishment_id=${food.establishment_id}&item_id=${food.item_id}`}
@@ -35,16 +55,13 @@ export default function FoodData({ data }) {
                   <button>SEE REVIEWS</button>
                 </Link>
               </div>
+              <div>
+                <button>UPDATE</button>
+                <button>DELETE</button>
+              </div>
             </div>
           </div>
         ))}
-
-        <div className="foodmenu-container">
-          <h1>ADD FOOD</h1>
-        </div>
-        <Link to={"/estabs"}>
-          <button>BACK TO ESTABLISHMENTS</button>
-        </Link>
       </div>
     </div>
   );
