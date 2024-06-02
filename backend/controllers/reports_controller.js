@@ -77,13 +77,13 @@ export async function viewAllFoodItems(req, res) {
   const buildSort = (sort_type) => {
     switch (sort_type) {
       case "default":
-        return '';
+        return "";
       case "asc":
-        return 'ORDER BY t.item_price';
+        return "ORDER BY t.item_price";
       case "desc":
-        return 'ORDER BY t.item_price desc';
+        return "ORDER BY t.item_price desc";
       default:
-        return '';  // Default case returns an empty string
+        return ""; // Default case returns an empty string
     }
   };
 
@@ -113,7 +113,7 @@ export async function viewAllFoodItems(req, res) {
     GROUP BY 
       t.item_id, t.item_name, t.item_price, t.food_type, t.establishment_id`;
 
-  if (sortQuery !== '') {
+  if (sortQuery !== "") {
     sqlQuery += ` ${sortQuery};`;
   }
 
@@ -159,17 +159,14 @@ export async function viewAllMonthlyReviewsEstablishment(req, res) {
   const establishment_id = req.query.establishment_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.item_name AS "Food Name", food_establishment.establishment_name AS
-      "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
+      `SELECT food_establishment.establishment_name AS
+      "Establishment Name", review AS "Review", food_review.entry_id AS "Entry Id", rating AS "Rating", user.display_name AS "Display
       Name", review_date AS "Date", review_time AS "Time"
-      FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
-      JOIN food_establishment ON
+      FROM food_review JOIN food_establishment ON
       food_review.establishment_id=food_establishment.establishment_id
-      JOIN user ON user.username=food_review.username WHERE (${month} =
-      MONTH(food_review.review_date)) AND (${year} =
-        YEAR(food_review.review_date)) AND establishment.establishment_id = ? GROUP BY food_review.entry_id, food_review.username,
-      food_review.establishment_id, food_review.item_id;`,
-      [establishment_id]
+      JOIN user ON user.username=food_review.username WHERE (MONTH(food_review.review_date) = ?) AND (YEAR(food_review.review_date) = ?) AND food_review.establishment_id = ?  AND food_review.item_id IS NULL GROUP BY food_review.entry_id, food_review.username,
+      food_review.establishment_id;`,
+      [month, year, establishment_id]
     );
 
     res.status(200).json(rows);
@@ -189,17 +186,14 @@ export async function viewAllMonthlyReviewsFoodItem(req, res) {
   const item_id = req.query.item_id;
   try {
     const [rows] = await pool.query(
-      `SELECT food_item.item_name AS "Food Name", food_establishment.establishment_name AS
+      `SELECT food_item.item_name AS "Food Name", food_review.entry_id AS "Entry Id", food_establishment.establishment_name AS
       "Establishment Name", review AS "Review", rating AS "Rating", user.display_name AS "Display
       Name", review_date AS "Date", review_time AS "Time"
       FROM food_review JOIN food_item ON food_review.item_id=food_item.item_id
       JOIN food_establishment ON
       food_review.establishment_id=food_establishment.establishment_id
-      JOIN user ON user.username=food_review.username WHERE (${month} =
-      MONTH(food_review.review_date)) AND (${year} =
-        YEAR(food_review.review_date)) AND food_item.item_id = ? GROUP BY food_review.entry_id, food_review.username,
-      food_review.establishment_id, food_review.item_id;`,
-      [item_id]
+      JOIN user ON user.username=food_review.username WHERE (MONTH(food_review.review_date) = ?) AND (YEAR(food_review.review_date) = ?) AND food_item.item_id = ? GROUP BY food_review.entry_id, food_review.username, food_review.item_id;`,
+      [month, year, item_id]
     );
 
     res.status(200).json(rows);
