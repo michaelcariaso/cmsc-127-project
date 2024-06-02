@@ -20,7 +20,6 @@ export async function addFoodEstablishment(req, res) {
   }
 }
 
-
 export async function deleteFoodEstablishment(req, res) {
   const establishment_id = req.body.establishment_id;
   try {
@@ -51,7 +50,6 @@ export async function deleteFoodEstablishment(req, res) {
 }
 
 export async function searchFoodEstablishment(req, res) {
-
   const establishment_id = req.query.establishment_id;
 
   try {
@@ -94,13 +92,26 @@ export async function searchEstabName(req, res) {
 }
 
 //estab_update string from string builder in
-export async function updateFoodEstablishment(req, res, estab_update) {
+export async function updateFoodEstablishment(req, res) {
+  const {
+    establishment_name,
+    establishment_address,
+    establishment_cuisine,
+    establishment_id,
+  } = req.body;
   try {
     const result = await pool.query(
-      `UPDATE food_establishment SET ${estab_update};`
+      `UPDATE food_establishment SET establishment_name = ?, establishment_address = ?, establishment_cuisine = ? WHERE establishment_id = ?;`,
+      [
+        establishment_name,
+        establishment_address,
+        establishment_cuisine,
+        establishment_id,
+      ]
     );
     res.status(200).json(result);
   } catch (error) {
+    res.status(500).json({ error: "Failed to update food establishment" });
     console.error("Error updating food establishment:", error);
     throw error;
   }
