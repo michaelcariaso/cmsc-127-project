@@ -8,9 +8,9 @@ export async function viewAllEstablishments(req, res) {
               food_establishment.establishment_name AS "Establishment Name",
               food_establishment.establishment_address AS "Address",
               food_establishment.establishment_cuisine AS "Cuisine",
-              AVG(food_review.rating) AS "Average Rating"
+              COALESCE(AVG(food_review.rating), 0) AS "Average Rating"
          FROM food_establishment 
-         JOIN food_review ON food_establishment.establishment_id = food_review.establishment_id
+         LEFT JOIN food_review ON food_establishment.establishment_id = food_review.establishment_id
          GROUP BY food_establishment.establishment_id
          ORDER BY "Average Rating" DESC;`
     );
