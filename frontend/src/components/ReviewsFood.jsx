@@ -38,7 +38,6 @@ export default function ReviewsFoodData(props) {
         <div>
           <div key={review.id} className="review">
             <h2>{review["Review"]}</h2>
-          </div>
 
           <button
             onClick={(e) => {
@@ -46,21 +45,23 @@ export default function ReviewsFoodData(props) {
               deleteReview(review.entry_id);
               window.location.reload();
             }}
-          >
+            >
             DELETE REVIEW
           </button>
+            </div>
         </div>
       ))}
+      <div>
+        <Link
+          to={`/estabs/food/food-review/add-review?establishment_id=${props.establishment_id}&item_id=${props.item_id}`}
+          >
+          <button>ADD REVIEW</button>
+        </Link>
 
-      <Link
-        to={`/estabs/food/food-review/add-review?establishment_id=${props.establishment_id}&item_id=${props.item_id}`}
-      >
-        <button>ADD REVIEW</button>
-      </Link>
-
-      <Link to={`/estabs/food?establishment_id=${props.establishment_id}`}>
-        <button>Back to Food</button>
-      </Link>
+        <Link to={`/estabs/food?establishment_id=${props.establishment_id}`}>
+          <button>Back to Food</button>
+        </Link>
+      </div>
     </div>
   );
 }
