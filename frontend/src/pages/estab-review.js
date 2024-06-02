@@ -5,14 +5,10 @@ import Navbar from "./navbar";
 import ReviewsEstabData from "../components/ReviewsEstab";
 
 const ReviewsEstab = () => {
-    const location = useLocation();
+  const location = useLocation();
   const params = new URLSearchParams(location.search);
   const establishment_id = params.get('establishment_id');
   const [estabReviewData, setEstabReviewData] = useState([]);
-
-  console.log("USEPARAMS");
-  console.log(establishment_id);
-  console.log("===========");
 
   useEffect(() => {
     const fetchReviews = async () => {
