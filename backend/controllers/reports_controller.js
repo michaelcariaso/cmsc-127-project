@@ -176,10 +176,7 @@ export async function viewAllMonthlyReviewsFoodItem(req, res) {
 export async function viewAllHighAverageRatingEstablishments(req, res) {
   try {
     const [rows] = await pool.query(
-      `SELECT f.establishment_id, e.establishment_name, e.establishment_address, e.establishment_cuisine, AVG(r.rating) AS average_rating
-      FROM food_review r JOIN food_establishment e ON r.establishment_id = e.establishment_id JOIN food_item f ON r.item_id = f.item_id
-      GROUP BY f.establishment_id, e.establishment_name, e.establishment_address, e.establishment_cuisine
-      HAVING AVG(r.rating) >= 4;`
+      `SELECT e.establishment_id, e.establishment_name AS "Establishment Name", e.establishment_address AS "Address", e.establishment_cuisine AS "Cuisine", AVG(r.rating) AS "Average Rating" FROM food_review r JOIN food_establishment e ON r.establishment_id = e.establishment_id JOIN food_item f ON r.item_id = f.item_id GROUP BY f.establishment_id, e.establishment_name, e.establishment_address HAVING AVG(r.rating) >= 4;`
     );
 
     res.status(200).json(rows);
