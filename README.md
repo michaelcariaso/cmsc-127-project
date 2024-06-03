@@ -12,7 +12,7 @@
 - Run and initialize database in MariaDB
   > `source <DIRECTORY>/cmsc-127-project/backend/schema.sql;` 
 
-- Install React and Express dependencies
+- Install React and Express dependencies in both /frontend and /backend
   > `npm i`
 
 - Run /backend
