@@ -27,6 +27,10 @@ import UpdateFood from "./pages/update-food.js";
 import UpdateEstabReview from "./pages/update-estab-review.js";
 import UpdateFoodReview from "./pages/update-food-review.js";
 
+export const userState = {
+  currentUser: "jeboy456"
+};
+
 const router = createBrowserRouter([
   //LOGIN/SIGNUP
   { path: "/", element: <LogIn /> },

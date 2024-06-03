@@ -20,13 +20,25 @@ export async function addUser(req, res) {
 //search user
 export async function searchUser(req, res) {
   const username = req.query.username;
-  const user_password = req.query.password;
+  // const user_password = req.query.password;
   try {
     const [rows] = await pool.query(
-      `SELECT * FROM user WHERE username = ? AND user_password = ?;
+      `SELECT * FROM user WHERE username = ?;
           `,
-      [username, user_password]
+      [username] //password
     );
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch user from the database" });
+  }
+}
+
+export async function showAllUsers(req, res) {
+    try {
+      const [rows] = await pool.query(
+        `SELECT * FROM user`,
+      );
     res.json(rows);
   } catch (error) {
     console.error(error);

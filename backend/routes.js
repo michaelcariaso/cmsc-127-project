@@ -10,7 +10,7 @@ import {
   viewAllFoodItemsOrderByPrice,
 } from "./controllers/reports_controller.js";
 
-import { addUser, searchUser } from "./controllers/user_controller.js";
+import { addUser, searchUser, showAllUsers } from "./controllers/user_controller.js";
 
 import {
   addReview,
@@ -57,6 +57,7 @@ const setUpRoutes = (app) => {
   //user
   app.post("/user/add", addUser);
   app.get("/user/search", searchUser);
+  app.get("/user/get-all", showAllUsers)
 
   //food review
   app.post("/review/add", addReview);

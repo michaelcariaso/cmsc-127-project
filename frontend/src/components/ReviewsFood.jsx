@@ -52,6 +52,14 @@ export default function ReviewsFoodData(props) {
       });
   }
 
+  const handleChangeMonth = (event) => {
+    setMonth(event.target.value);
+  }
+
+  const handleChangeYear = (event) => {
+    setYear(event.target.value);
+  }
+
   return (
     <>
       {isMonthly === false && (
@@ -59,6 +67,7 @@ export default function ReviewsFoodData(props) {
           <h1>Reviews</h1>
           {reviews.map((review) => (
             <div key={review.entry_id} className="review">
+              <p>{review["Display Name"]}</p>
               <h2>{review["Review"]}</h2>
 
               <Link
@@ -128,6 +137,7 @@ export default function ReviewsFoodData(props) {
           <h1>Reviews</h1>
           {filteredReviews.map((review) => (
             <div key={review.entry_id} className="review">
+              <p>{review["Display Name"]}</p>
               <h2>{review["Review"]}</h2>
 
               <button

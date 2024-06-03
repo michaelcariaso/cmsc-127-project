@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { userState } from "../index.js";
 
 export default function AddReviewData({ establishment_id, item_id }) {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);
-  const username = "mike123";
+
+
+  const username = userState.currentUser;
   //validate fields function
   function validateFields() {
     console.log(establishment_id);
