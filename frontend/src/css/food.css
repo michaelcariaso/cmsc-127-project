@@ -48,7 +48,7 @@
   padding: 0px;
   gap: 10px;
   justify-content: center;
-  width: 100%; /* Ensure this takes the full width of the parent */
+  width: 100%;
 }
 
 .fooditem-header {
