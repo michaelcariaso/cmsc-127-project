@@ -53,7 +53,9 @@ export default function EstabFoodData({ data, establishment_id }) {
   return (
     <div className="inventorytable-container">
       <div className="fooditem-header">
-        <h1>FOOD ITEMS OF {estabData[0]?.establishment_name}</h1>
+        {estabData[0]?.establishment_name !== undefined && (
+          <h1>FOOD ITEMS OF {estabData[0]?.establishment_name}</h1>
+        )}
         <Link to={"/estabs"}>
           <button>BACK TO ESTABLISHMENTS</button>
         </Link>
@@ -70,9 +72,9 @@ export default function EstabFoodData({ data, establishment_id }) {
             <div className="food-deets">
               <h1 className="food-name">{food.item_name}</h1>
               <p className="food-price">Price: {food.item_price}</p>
-              <p className="food-price">
-                AVG. RATING: {food["Average Rating"]}
-              </p>
+              {food["Average Rating"] !== undefined && (
+                <p className="food-rating">AVG. RATING: {food["Average Rating"]}</p>
+              )}
               <div className="estab-btn">
                 <Link
                   to={`/estabs/food/food-review?establishment_id=${food.establishment_id}&item_id=${food.item_id}`}
@@ -86,7 +88,7 @@ export default function EstabFoodData({ data, establishment_id }) {
                 </Link>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent click event from propagating
+                    e.stopPropagation();
                     deleteFood(food.item_id);
                     window.location.reload();
                   }}
